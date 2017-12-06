@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="ENTRY_BUTTON_WIDTH">48dp</dimen>
+    <dimen name="ENTRY_BUTTON_HEIGHT">48dp</dimen>
+    <dimen name="ENTRY_LAYOUT_HEIGHT">56dp</dimen>
+</resources>

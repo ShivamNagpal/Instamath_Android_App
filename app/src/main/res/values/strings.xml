@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">InstaMath</string>
+    <string name="basic_calculator">Basic Calculator</string>
+    <string name="scientific_calculator">Scientific Calculator</string>
+    <string name="interpolation">Interpolation</string>
+    <string name="simple_interest">Simple Interest</string>
+
+    <string name="search_open">Search</string>
+    <string name="about">About</string>
+    <string name="developer_info">Developed By\nShivam Nagpal\nVivek Kumar Singh</string>
+    <string name="search_clear">Clear</string>
+    <string name="compound_interest">Compound Interest</string>
+    <string name="preferences">Preferences</string>
+</resources>
