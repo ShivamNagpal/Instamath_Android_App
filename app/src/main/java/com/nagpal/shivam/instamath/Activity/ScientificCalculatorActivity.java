@@ -1,5 +1,6 @@
 package com.nagpal.shivam.instamath.Activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.TextView;
 
 import com.nagpal.shivam.instamath.R;
+import com.nagpal.shivam.instamath.Utils.Constants;
 
 import org.mariuszgromada.math.mxparser.Expression;
 
@@ -23,7 +25,7 @@ public class ScientificCalculatorActivity extends AppCompatActivity {
     private TextView txtViewScientificExpressionDisplay;
     private HorizontalScrollView hsvResult;
     private double result;
-    private DecimalFormat decimalFormat = new DecimalFormat("#0.000000000");
+    private DecimalFormat decimalFormat;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -45,6 +47,14 @@ public class ScientificCalculatorActivity extends AppCompatActivity {
         }
         stringBuilder = new StringBuilder();
         initViews();
+
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.PREFERENCES_ACTIVITY_KEY, MODE_PRIVATE);
+
+        StringBuilder patternDecimalFormat = new StringBuilder("#0.");
+        for (int i = 0; i < sharedPreferences.getFloat(PreferencesActivity.PREFERENCES_FIX_KEY, PreferencesActivity.PREFERENCES_FIX_DEFAULT_VALUE); i++) {
+            patternDecimalFormat.append("0");
+        }
+        decimalFormat = new DecimalFormat(patternDecimalFormat.toString());
 
         Button btnZero = (Button) findViewById(R.id.button_scientific_zero);
         btnZero.setOnClickListener(new View.OnClickListener() {
