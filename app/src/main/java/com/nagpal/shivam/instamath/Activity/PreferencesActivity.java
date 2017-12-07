@@ -3,8 +3,12 @@ package com.nagpal.shivam.instamath.Activity;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -43,7 +47,9 @@ public class PreferencesActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 final PreferenceDetail currentPreferenceDetail = preferenceDetailArrayList.get(i);
                 AlertDialog.Builder builder = new AlertDialog.Builder(PreferencesActivity.this);
-                builder.setTitle(currentPreferenceDetail.getName());
+                Spannable title = new SpannableString(currentPreferenceDetail.getName());
+                title.setSpan(new ForegroundColorSpan(ContextCompat.getColor(PreferencesActivity.this, R.color.colorPrimary)), 0, title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                builder.setTitle(title);
                 builder.setView(currentPreferenceDetail.getView());
                 builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     @Override
