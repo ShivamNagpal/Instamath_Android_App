@@ -76,7 +76,8 @@ public class PreferenceDetail {
         final TextView textView = new TextView(context);
         textView.setLayoutParams(textViewLayoutParams);
         textView.setText(Float.toString(value));
-        textView.setPadding(25, 0, 25, 0);
+        textView.setGravity(Gravity.CENTER);
+        textView.setPadding((int) ConstantMethods.dpToFloat(resources, 16), 0, (int) ConstantMethods.dpToFloat(resources, 16), 0);
 
         Button increment = new Button(context);
         increment.setLayoutParams(buttonLayoutParams);

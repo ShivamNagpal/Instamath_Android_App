@@ -50,6 +50,7 @@ public class PreferencesActivity extends AppCompatActivity {
                 Spannable title = new SpannableString(currentPreferenceDetail.getName());
                 title.setSpan(new ForegroundColorSpan(ContextCompat.getColor(PreferencesActivity.this, R.color.colorPrimary)), 0, title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 builder.setTitle(title);
+                builder.setMessage("");
                 builder.setView(currentPreferenceDetail.getView());
                 builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     @Override
