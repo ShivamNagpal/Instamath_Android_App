@@ -5,4 +5,4 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:padding="24dp"
-    android:textSize="24sp"/>
+    android:textSize="24sp" />

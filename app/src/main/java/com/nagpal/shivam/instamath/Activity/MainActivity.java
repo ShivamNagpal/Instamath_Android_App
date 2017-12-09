@@ -1,6 +1,7 @@
 package com.nagpal.shivam.instamath.Activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private AutoCompleteTextView actvSearch;
     private Toolbar toolbar;
     private Boolean isSearchOpen = false;
+    private Float defaultToolbarElevation;
 
 
     @Override
@@ -68,7 +70,10 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.main_activity_toolbar_default);
         setSupportActionBar(toolbar);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            defaultToolbarElevation = toolbar.getElevation();
+        }
+//        Toast.makeText(MainActivity.this, "" + defaultToolbarElevation, Toast.LENGTH_LONG).show();
         ListView listView = (ListView) findViewById(R.id.list_view_activity);
 
 
@@ -124,7 +129,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void openSearch() {
         isSearchOpen = true;
-
+        toolbar.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.searchOpenedToolbar));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            toolbar.setElevation(5 * defaultToolbarElevation);
+        }
         actvSearch.requestFocus();
         invalidateOptionsMenu();
         if (getSupportActionBar() != null) {
@@ -135,7 +143,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void closeSearch() {
         isSearchOpen = false;
+        toolbar.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorPrimary));
         actvSearch.setText(null);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            toolbar.setElevation(defaultToolbarElevation);
+        }
         toolbar.removeView(actvSearch);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
