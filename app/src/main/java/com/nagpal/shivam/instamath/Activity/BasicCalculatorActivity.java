@@ -1,5 +1,6 @@
 package com.nagpal.shivam.instamath.Activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -10,8 +11,11 @@ import android.widget.HorizontalScrollView;
 import android.widget.TextView;
 
 import com.nagpal.shivam.instamath.R;
+import com.nagpal.shivam.instamath.Utils.Constants;
 
 import org.mariuszgromada.math.mxparser.Expression;
+
+import java.text.DecimalFormat;
 
 public class BasicCalculatorActivity extends AppCompatActivity {
 
@@ -19,6 +23,8 @@ public class BasicCalculatorActivity extends AppCompatActivity {
     private TextView txtViewBasicResultDisplay;
     private TextView txtViewBasicExpressionDisplay;
     private HorizontalScrollView hsvResult;
+    private double result;
+    private DecimalFormat decimalFormat;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -42,6 +48,14 @@ public class BasicCalculatorActivity extends AppCompatActivity {
         stringBuilder = new StringBuilder();
 
         initViews();
+
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.PREFERENCES_ACTIVITY_KEY, MODE_PRIVATE);
+
+        StringBuilder patternDecimalFormat = new StringBuilder("#0.");
+        for (int i = 0; i < sharedPreferences.getFloat(PreferencesActivity.PREFERENCES_FIX_KEY, PreferencesActivity.PREFERENCES_FIX_DEFAULT_VALUE); i++) {
+            patternDecimalFormat.append("0");
+        }
+        decimalFormat = new DecimalFormat(patternDecimalFormat.toString());
 
         Button btnZero = (Button) findViewById(R.id.button_basic_zero);
         btnZero.setOnClickListener(new View.OnClickListener() {
@@ -176,9 +190,18 @@ public class BasicCalculatorActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 updateExpressionDisplay(stringBuilder.toString());
-                Expression expression = new Expression(stringBuilder.toString());
+                try {
+                    Expression expression = new Expression(stringBuilder.toString());
+                    result = expression.calculate();
+                    result = Double.parseDouble(decimalFormat.format(result));
+                    if (Math.abs(result) == 0) {
+                        result = Math.abs(result);
+                    }
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
                 stringBuilder.setLength(0);
-                stringBuilder.append(expression.calculate());
+                stringBuilder.append(result);
                 String temp = "= " + stringBuilder.toString();
                 txtViewBasicResultDisplay.setText(temp);
                 new Handler().postDelayed(new Runnable() {
