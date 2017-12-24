@@ -151,8 +151,8 @@ public class InterpolationActivity extends AppCompatActivity {
         et2.setLayoutParams(editTextLayoutParams);
         et2.setSaveEnabled(true);
         et2.setGravity(Gravity.CENTER);
-        et1.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        et2.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        et1.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+        et2.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         et1.setOnEditorActionListener(et1ActionListener);
         et2.setOnEditorActionListener(et2ActionListener);
         View view = new View(InterpolationActivity.this);
