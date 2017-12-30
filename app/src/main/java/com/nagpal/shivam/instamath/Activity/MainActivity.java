@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         mActivityDetailArrayList.add(new ActivityDetail("Simple Interest", SimpleInterestActivity.class));
         mActivityDetailArrayList.add(new ActivityDetail("Compound Interest", CompoundInterestActivity.class));
         mActivityDetailArrayList.add(new ActivityDetail("Interpolation", InterpolationActivity.class));
+        mActivityDetailArrayList.add(new ActivityDetail("Number Conversion", NumberConversionActivity.class));
 
         ActivityDetailAdapter activityDetailAdapter = new ActivityDetailAdapter(this, mActivityDetailArrayList);
 
