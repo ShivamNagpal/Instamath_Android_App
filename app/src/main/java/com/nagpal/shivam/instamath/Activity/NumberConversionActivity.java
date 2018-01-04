@@ -18,7 +18,7 @@ public class NumberConversionActivity extends AppCompatActivity {
     private static final String decimalStr = "Decimal";
     private static final String binaryStr = "Binary";
     private static final String octalStr = "Octal";
-    private static final String hexadecimalStr = "HexaDecimal";
+    private static final String hexadecimalStr = "Hexadecimal";
     private EditText etInput;
     private EditText etOutput;
     private Spinner spnrInput;
@@ -35,7 +35,7 @@ public class NumberConversionActivity extends AppCompatActivity {
         numberTypeArrayList.add(decimalStr);
         numberTypeArrayList.add(binaryStr);
         numberTypeArrayList.add(octalStr);
-//        numberTypeArrayList.add(hexadecimalStr);
+        numberTypeArrayList.add(hexadecimalStr);
 
         ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(NumberConversionActivity.this, android.R.layout.simple_spinner_item, numberTypeArrayList);
 
@@ -74,26 +74,39 @@ public class NumberConversionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String result = "";
+                String input = etInput.getText().toString();
                 switch (spnrInput.getSelectedItem().toString() + spnrOutput.getSelectedItem().toString()) {
 
                     case decimalStr + binaryStr:
-                        result = fromDecimal(2, etInput.getText().toString());
-                        break;
-
-                    case binaryStr + decimalStr:
-                        result = toDecimal(2, etInput.getText().toString());
-                        break;
-
-                    case binaryStr + octalStr:
-                        result = binaryToOctal(etInput.getText().toString());
+                        result = fromDecimal(2, input);
                         break;
 
                     case decimalStr + octalStr:
-                        result = fromDecimal(8, etInput.getText().toString());
+                        result = fromDecimal(8, input);
+                        break;
+
+                    case decimalStr + hexadecimalStr:
+                        result = fromDecimal(16, input);
+                        break;
+
+                    case binaryStr + decimalStr:
+                        result = toDecimal(2, input);
+                        break;
+
+                    case binaryStr + octalStr:
+                        result = binaryToOctal(input);
+                        break;
+
+                    case binaryStr + hexadecimalStr:
+                        result = binaryToHexadecimal(input);
                         break;
 
                     case octalStr + decimalStr:
-                        result = toDecimal(8, etInput.getText().toString());
+                        result = toDecimal(8, input);
+                        break;
+
+                    case hexadecimalStr + decimalStr:
+                        result = toDecimal(16, input);
                         break;
                 }
                 etOutput.setText(result);
@@ -108,13 +121,17 @@ public class NumberConversionActivity extends AppCompatActivity {
         etOutput = findViewById(R.id.output_type_edit_text_number_conversion_activity);
     }
 
+
     private String fromDecimal(int base, String str) {
         int decimalNumber;
+        char temp;
         StringBuilder stringBuilder = new StringBuilder();
         try {
             decimalNumber = Integer.parseInt(str);
             while (decimalNumber != 0) {
-                stringBuilder.insert(0, decimalNumber % base);
+                temp = Character.forDigit(decimalNumber % base, base);
+                temp = Character.toUpperCase(temp);
+                stringBuilder.insert(0, temp);
                 decimalNumber /= base;
             }
         } catch (NumberFormatException e) {
@@ -124,6 +141,60 @@ public class NumberConversionActivity extends AppCompatActivity {
     }
 
     private String toDecimal(int base, String str) {
+        long decimalOutput = 0;
+        int i = 0;
+        int temp;
+        StringBuilder input = new StringBuilder(str);
+        while (input.length() > 0) {
+            temp = Character.digit(input.charAt(input.length() - 1), base);
+            decimalOutput += temp * Math.pow(base, i++);
+            input.setLength(input.length() - 1);
+        }
+        return decimalOutput != 0 ? Long.toString(decimalOutput) : null;
+    }
+
+    private String binaryToOctal(String str) {
+        StringBuilder input = new StringBuilder(str);
+        StringBuilder result = new StringBuilder();
+        String temp;
+
+        while (input.length() >= 3) {
+            temp = input.substring(input.length() - 3);
+            result.insert(0, toDecimal(2, temp));
+            input.setLength(input.length() - 3);
+        }
+
+        if (input.length() > 0) {
+            result.insert(0, toDecimal(2, input.toString()));
+            input.setLength(0);
+        }
+        return result.toString();
+    }
+
+    private String binaryToHexadecimal(String str) {
+        StringBuilder input = new StringBuilder(str);
+        StringBuilder result = new StringBuilder();
+        String temp;
+
+        while (input.length() >= 4) {
+            temp = input.substring(input.length() - 4);
+            temp = toDecimal(2, temp);
+            result.insert(0, Character.toUpperCase(Character.forDigit(Integer.parseInt(temp), 16)));
+            input.setLength(input.length() - 4);
+        }
+
+        if (input.length() > 0) {
+            temp = input.toString();
+            temp = toDecimal(2, temp);
+            result.insert(0, Character.toUpperCase(Character.forDigit(Integer.parseInt(temp), 16)));
+            input.setLength(0);
+        }
+        return result.toString();
+    }
+
+}
+
+  /*private String toDecimal(int base, String str) {
         int inputNumber;
         int i = 0;
         int decimalNumber = 0;
@@ -139,9 +210,10 @@ public class NumberConversionActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return Integer.toString(decimalNumber);
-    }
+    }*/
 
-    private String binaryToOctal(String str) {
+
+  /*private String binaryToOctal(String str) {
         int binaryNumber;
         int val;
         StringBuilder stringBuilder = new StringBuilder();
@@ -151,12 +223,9 @@ public class NumberConversionActivity extends AppCompatActivity {
                 val = binaryNumber % 1000;
                 binaryNumber /= 1000;
                 stringBuilder.insert(0, toDecimal(2, Integer.toString(val)));
-                // TODO: Implement using string actions.
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
         return stringBuilder.toString();
-    }
-
-}
+    }*/
