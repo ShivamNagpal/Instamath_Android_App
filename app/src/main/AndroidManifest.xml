@@ -38,7 +38,8 @@
         <activity
             android:name=".Activity.CompoundInterestActivity"
             android:label="@string/compound_interest" />
-        <activity android:name=".Activity.PreferencesActivity"></activity>
+        <activity android:name=".Activity.PreferencesActivity" />
+        <activity android:name=".Activity.NumberConversionActivity"></activity>
     </application>
 
 </manifest>
