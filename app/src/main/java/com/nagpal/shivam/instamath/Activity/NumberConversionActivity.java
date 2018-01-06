@@ -2,6 +2,8 @@ package com.nagpal.shivam.instamath.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.text.method.DigitsKeyListener;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.nagpal.shivam.instamath.R;
+import com.nagpal.shivam.instamath.Utils.HexadecimalValueAdapter;
 
 import java.util.ArrayList;
 
@@ -25,6 +28,7 @@ public class NumberConversionActivity extends AppCompatActivity {
     private EditText etOutput;
     private Spinner spnrInput;
     private Spinner spnrOutput;
+    private RecyclerView rvHexadecimalInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +49,24 @@ public class NumberConversionActivity extends AppCompatActivity {
         spnrOutput.setAdapter(stringArrayAdapter);
         spnrOutput.setSelection(1);
 
+        ArrayList<String> hexadecimalValueArrayList = new ArrayList<>();
+        hexadecimalValueArrayList.add("A");
+        hexadecimalValueArrayList.add("B");
+        hexadecimalValueArrayList.add("C");
+        hexadecimalValueArrayList.add("D");
+        hexadecimalValueArrayList.add("E");
+        hexadecimalValueArrayList.add("F");
+
+        rvHexadecimalInput.setHasFixedSize(true);
+        rvHexadecimalInput.setLayoutManager(new GridLayoutManager(NumberConversionActivity.this, 6));
+        rvHexadecimalInput.setAdapter(new HexadecimalValueAdapter(NumberConversionActivity.this, hexadecimalValueArrayList));
+
         spnrInput.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 etInput.setText(null);
+                rvHexadecimalInput.setVisibility(View.GONE);
 
                 switch (adapterView.getSelectedItem().toString()) {
                     case decimalStr:
@@ -63,6 +80,7 @@ public class NumberConversionActivity extends AppCompatActivity {
                         break;
                     case hexadecimalStr:
                         etInput.setKeyListener(DigitsKeyListener.getInstance("0123456789ABCDEF"));
+                        rvHexadecimalInput.setVisibility(View.VISIBLE);
                         break;
                 }
             }
@@ -145,6 +163,7 @@ public class NumberConversionActivity extends AppCompatActivity {
         spnrOutput = findViewById(R.id.output_type_spinner_number_conversion_activity);
         etInput = findViewById(R.id.input_type_edit_text_number_conversion_activity);
         etOutput = findViewById(R.id.output_type_edit_text_number_conversion_activity);
+        rvHexadecimalInput = findViewById(R.id.hexadecimal_input_recycler_view);
     }
 
     private String fromDecimal(int base, String str) {
