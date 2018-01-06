@@ -2,6 +2,7 @@ package com.nagpal.shivam.instamath.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.text.method.DigitsKeyListener;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.nagpal.shivam.instamath.R;
 
@@ -46,7 +48,9 @@ public class NumberConversionActivity extends AppCompatActivity {
         spnrInput.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
                 etInput.setText(null);
+
                 switch (adapterView.getSelectedItem().toString()) {
                     case decimalStr:
                         etInput.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
@@ -75,6 +79,12 @@ public class NumberConversionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String result = "";
                 String input = etInput.getText().toString();
+
+                if (TextUtils.isEmpty(input)) {
+                    Toast.makeText(NumberConversionActivity.this, "Enter a value!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 switch (spnrInput.getSelectedItem().toString() + spnrOutput.getSelectedItem().toString()) {
 
                     case decimalStr + binaryStr:
@@ -105,8 +115,24 @@ public class NumberConversionActivity extends AppCompatActivity {
                         result = toDecimal(8, input);
                         break;
 
+                    case octalStr + binaryStr:
+                        result = octalToBinary(input);
+                        break;
+
+                    case octalStr + hexadecimalStr:
+                        result = binaryToHexadecimal(octalToBinary(input));
+                        break;
+
                     case hexadecimalStr + decimalStr:
                         result = toDecimal(16, input);
+                        break;
+
+                    case hexadecimalStr + binaryStr:
+                        result = hexadecimalToBinary(input);
+                        break;
+
+                    case hexadecimalStr + octalStr:
+                        result = binaryToOctal(hexadecimalToBinary(input));
                         break;
                 }
                 etOutput.setText(result);
@@ -150,7 +176,7 @@ public class NumberConversionActivity extends AppCompatActivity {
             decimalOutput += temp * Math.pow(base, i++);
             input.setLength(input.length() - 1);
         }
-        return decimalOutput != 0 ? Long.toString(decimalOutput) : null;
+        return Long.toString(decimalOutput);
     }
 
     private String binaryToOctal(String str) {
@@ -165,7 +191,10 @@ public class NumberConversionActivity extends AppCompatActivity {
         }
 
         if (input.length() > 0) {
-            result.insert(0, toDecimal(2, input.toString()));
+            temp = toDecimal(2, input.toString());
+            if (!temp.equals("0")) {
+                result.insert(0, temp);
+            }
             input.setLength(0);
         }
         return result.toString();
@@ -186,46 +215,44 @@ public class NumberConversionActivity extends AppCompatActivity {
         if (input.length() > 0) {
             temp = input.toString();
             temp = toDecimal(2, temp);
-            result.insert(0, Character.toUpperCase(Character.forDigit(Integer.parseInt(temp), 16)));
+            if (!temp.equals("0")) {
+                result.insert(0, Character.toUpperCase(Character.forDigit(Integer.parseInt(temp), 16)));
+            }
             input.setLength(0);
         }
         return result.toString();
     }
 
+    private String octalToBinary(String str) {
+        StringBuilder input = new StringBuilder(str);
+        StringBuilder result = new StringBuilder();
+        String temp;
+
+        while (input.length() > 0) {
+            temp = input.substring(input.length() - 1);
+            result.insert(0, fromDecimal(2, temp));
+            while (result.length() % 3 != 0) {
+                result.insert(0, "0");
+            }
+            input.setLength(input.length() - 1);
+        }
+        return result.toString();
+    }
+
+    private String hexadecimalToBinary(String str) {
+        StringBuilder input = new StringBuilder(str);
+        StringBuilder result = new StringBuilder();
+        char temp;
+
+        while (input.length() > 0) {
+            temp = input.charAt(input.length() - 1);
+            result.insert(0, fromDecimal(2, Integer.toString(Character.digit(temp, 16))));
+            while (result.length() % 4 != 0) {
+                result.insert(0, "0");
+            }
+            input.setLength(input.length() - 1);
+        }
+        return result.toString();
+    }
+
 }
-
-  /*private String toDecimal(int base, String str) {
-        int inputNumber;
-        int i = 0;
-        int decimalNumber = 0;
-        int val;
-        try {
-            inputNumber = Integer.parseInt(str);
-            while (inputNumber != 0) {
-                val = inputNumber % 10;
-                inputNumber /= 10;
-                decimalNumber += val * Math.pow(base, i++);
-            }
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-        return Integer.toString(decimalNumber);
-    }*/
-
-
-  /*private String binaryToOctal(String str) {
-        int binaryNumber;
-        int val;
-        StringBuilder stringBuilder = new StringBuilder();
-        try {
-            binaryNumber = Integer.parseInt(str);
-            while (binaryNumber != 0) {
-                val = binaryNumber % 1000;
-                binaryNumber /= 1000;
-                stringBuilder.insert(0, toDecimal(2, Integer.toString(val)));
-            }
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-        return stringBuilder.toString();
-    }*/
