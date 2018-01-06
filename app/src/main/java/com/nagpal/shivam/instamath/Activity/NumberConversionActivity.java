@@ -39,7 +39,7 @@ public class NumberConversionActivity extends AppCompatActivity {
         numberTypeArrayList.add(octalStr);
         numberTypeArrayList.add(hexadecimalStr);
 
-        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(NumberConversionActivity.this, android.R.layout.simple_spinner_item, numberTypeArrayList);
+        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(NumberConversionActivity.this, android.R.layout.simple_spinner_dropdown_item, numberTypeArrayList);
 
         spnrInput.setAdapter(stringArrayAdapter);
         spnrOutput.setAdapter(stringArrayAdapter);
@@ -146,7 +146,6 @@ public class NumberConversionActivity extends AppCompatActivity {
         etInput = findViewById(R.id.input_type_edit_text_number_conversion_activity);
         etOutput = findViewById(R.id.output_type_edit_text_number_conversion_activity);
     }
-
 
     private String fromDecimal(int base, String str) {
         int decimalNumber;
