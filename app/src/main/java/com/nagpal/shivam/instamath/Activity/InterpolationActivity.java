@@ -20,9 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nagpal.shivam.instamath.R;
-import com.nagpal.shivam.instamath.Utils.EntryValue;
-
-import java.util.ArrayList;
+import com.nagpal.shivam.instamath.Utils.TwoColumnList;
 
 public class InterpolationActivity extends AppCompatActivity {
     private int firstEntryIndex = 1;
@@ -35,10 +33,11 @@ public class InterpolationActivity extends AppCompatActivity {
     private TextView tvResult;
     private Resources resources;
     private LinearLayout llRoot;
-    private ArrayList<EntryValue> alEntryValue;
+    private TwoColumnList<Double> inputTwoColumnList;
     private EditText etHypothesis;
     private Double hypothesis;
-// TODO: Implement Inverse Interpolation, Also change the pair data storage to Subset Storage.
+
+    // TODO: Implement Inverse Interpolation, Also change the pair data storage to Subset Storage.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -59,7 +58,7 @@ public class InterpolationActivity extends AppCompatActivity {
         }
 
         resources = getResources();
-        alEntryValue = new ArrayList<>();
+        inputTwoColumnList = new TwoColumnList<>();
         llRoot = (LinearLayout) findViewById(R.id.root_layout_main_activity);
         llRoot.setSaveEnabled(true);
         etHypothesis = (EditText) findViewById(R.id.hypothesis_edit_text);
@@ -95,7 +94,6 @@ public class InterpolationActivity extends AppCompatActivity {
                     LinearLayout rootView = (LinearLayout) entryParent.getParent();
                     int index = rootView.indexOfChild(entryParent);
                     index++;
-                    Log.v("sagfasdf", "" + index + getEntryCount());
                     if (index <= getEntryCount()) {
                         ((LinearLayout) rootView.getChildAt(index)).getChildAt(0).requestFocus();
                         return true;
@@ -121,7 +119,6 @@ public class InterpolationActivity extends AppCompatActivity {
                     String message = "Interpolation : " + calculateInterpolation();
                     tvResult.setText(message);
                 }
-                Log.d("Debug", Integer.toString(alEntryValue.size()));
             }
         });
 
@@ -147,7 +144,6 @@ public class InterpolationActivity extends AppCompatActivity {
         et1.setLayoutParams(editTextLayoutParams);
         et1.setSaveEnabled(true);
         et1.setGravity(Gravity.CENTER);
-//        et1.requestFocus();
         et2.setLayoutParams(editTextLayoutParams);
         et2.setSaveEnabled(true);
         et2.setGravity(Gravity.CENTER);
@@ -180,7 +176,7 @@ public class InterpolationActivity extends AppCompatActivity {
 
     private boolean fetchData() {
 
-        alEntryValue.clear();
+        inputTwoColumnList.clear();
         tvResult.setText(null);
 
         int entryCount = getEntryCount();
@@ -199,7 +195,7 @@ public class InterpolationActivity extends AppCompatActivity {
             try {
                 valX = Double.parseDouble(editText1.getText().toString());
                 valY = Double.parseDouble(editText2.getText().toString());
-                alEntryValue.add(new EntryValue(valX, valY));
+                inputTwoColumnList.add(valX, valY);
             } catch (NumberFormatException e) {
                 Log.e("Interpolation Activity", e.toString());
                 Toast.makeText(InterpolationActivity.this, "Enter value in all cells", Toast.LENGTH_SHORT).show();
@@ -219,27 +215,27 @@ public class InterpolationActivity extends AppCompatActivity {
 
     private double calculateInterpolation() {
 
-        int alEntryValueSize = alEntryValue.size();
-        Log.v("Size", "" + alEntryValue);
+        int inputTwoColumnListSize = inputTwoColumnList.getSize();
         int termIndex;
         double term = 0;
 
 
-        for (termIndex = 0; termIndex < alEntryValueSize; termIndex++) {
+        for (termIndex = 0; termIndex < inputTwoColumnListSize; termIndex++) {
 
             double numerator = 1;
             double denominator = 1;
 
-            for (int index = 0; index < alEntryValueSize; index++) {
+            for (int index = 0; index < inputTwoColumnListSize; index++) {
                 if (termIndex == index) {
                     continue;
                 }
-                numerator *= hypothesis - alEntryValue.get(index).getX();
-                denominator *= alEntryValue.get(termIndex).getX() - alEntryValue.get(index).getX();
+                numerator *= hypothesis - inputTwoColumnList.getX(index);
+
+                denominator *= inputTwoColumnList.getX(termIndex) - inputTwoColumnList.getX(index);
                 Log.v("Numerator", "" + numerator);
                 Log.v("Denominator", "" + denominator);
             }
-            term += (numerator * alEntryValue.get(termIndex).getY()) / denominator;
+            term += (numerator * inputTwoColumnList.getY(termIndex)) / denominator;
         }
         return term;
     }
