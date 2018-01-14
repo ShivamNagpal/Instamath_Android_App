@@ -81,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
 
         mActivityDetailArrayList.add(new ActivityDetail("Basic Calculator", BasicCalculatorActivity.class));
         mActivityDetailArrayList.add(new ActivityDetail("Scientific Calculator", ScientificCalculatorActivity.class));
-        mActivityDetailArrayList.add(new ActivityDetail("Simple Interest", SimpleInterestActivity.class));
-        mActivityDetailArrayList.add(new ActivityDetail("Compound Interest", CompoundInterestActivity.class));
+        mActivityDetailArrayList.add(new ActivityDetail("Interest", InterestActivity.class));
+//        mActivityDetailArrayList.add(new ActivityDetail("Compound Interest", CompoundInterestActivity.class));
         mActivityDetailArrayList.add(new ActivityDetail("Interpolation", InterpolationActivity.class));
         mActivityDetailArrayList.add(new ActivityDetail("Number Conversion", NumberConversionActivity.class));
 

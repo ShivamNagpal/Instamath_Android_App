@@ -13,16 +13,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewManager;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nagpal.shivam.instamath.R;
 import com.nagpal.shivam.instamath.Utils.TwoColumnList;
 
+import java.util.ArrayList;
+
 public class InterpolationActivity extends AppCompatActivity {
+    private static final String INTERPOLATION = "Interpolation";
+    private static final String INVERSE_INTERPOLATION = "Inverse Interpolation";
     private int firstEntryIndex = 1;
     private int nextEntryIndex = firstEntryIndex;
     private View.OnClickListener removeViewClickListener;
@@ -36,6 +43,8 @@ public class InterpolationActivity extends AppCompatActivity {
     private TwoColumnList<Double> inputTwoColumnList;
     private EditText etHypothesis;
     private Double hypothesis;
+    private Spinner interpolationSpinner;
+    private TextView hypothesisTV;
 
     // TODO: Implement Inverse Interpolation, Also change the pair data storage to Subset Storage.
     @Override
@@ -63,6 +72,10 @@ public class InterpolationActivity extends AppCompatActivity {
         llRoot.setSaveEnabled(true);
         etHypothesis = (EditText) findViewById(R.id.hypothesis_edit_text);
         tvResult = (TextView) findViewById(R.id.result_text_view);
+        interpolationSpinner = findViewById(R.id.interpolation_spinner);
+        hypothesisTV = findViewById(R.id.hypothesis_text_view);
+
+        interpolationSpinner.setAdapter(new ArrayAdapter<String>(InterpolationActivity.this, android.R.layout.simple_spinner_dropdown_item, new String[]{INTERPOLATION, INVERSE_INTERPOLATION}));
 
         removeViewClickListener = new View.OnClickListener() {
             @Override
@@ -111,12 +124,41 @@ public class InterpolationActivity extends AppCompatActivity {
             }
         });
 
+        interpolationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (adapterView.getSelectedItem().toString()) {
+                    case INTERPOLATION:
+                        hypothesisTV.setText("x :");
+                        break;
+                    case INVERSE_INTERPOLATION:
+                        hypothesisTV.setText("y :");
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         btnSubmit = (Button) findViewById(R.id.submit_button);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (fetchData()) {
-                    String message = "Interpolation : " + calculateInterpolation();
+                    String message = null;
+                    switch (interpolationSpinner.getSelectedItem().toString()) {
+                        case INTERPOLATION:
+                            message = "Interpolation : " + calculateInterpolation(inputTwoColumnList.getXArrayList(), inputTwoColumnList.getYArrayList(), inputTwoColumnList.getSize());
+                            break;
+
+                        case INVERSE_INTERPOLATION:
+                            message = "Inverse Interpolation : " + calculateInterpolation(inputTwoColumnList.getYArrayList(), inputTwoColumnList.getXArrayList(), inputTwoColumnList.getSize());
+                            break;
+                    }
+
                     tvResult.setText(message);
                 }
             }
@@ -213,7 +255,7 @@ public class InterpolationActivity extends AppCompatActivity {
         return true;
     }
 
-    private double calculateInterpolation() {
+    /*private double calculateInterpolation() {
 
         int inputTwoColumnListSize = inputTwoColumnList.getSize();
         int termIndex;
@@ -236,6 +278,31 @@ public class InterpolationActivity extends AppCompatActivity {
                 Log.v("Denominator", "" + denominator);
             }
             term += (numerator * inputTwoColumnList.getY(termIndex)) / denominator;
+        }
+        return term;
+    }*/
+
+    private double calculateInterpolation(ArrayList<Double> AList, ArrayList<Double> BList, int size) {
+        int termIndex;
+        double term = 0;
+
+
+        for (termIndex = 0; termIndex < size; termIndex++) {
+
+            double numerator = 1;
+            double denominator = 1;
+
+            for (int index = 0; index < size; index++) {
+                if (termIndex == index) {
+                    continue;
+                }
+                numerator *= hypothesis - AList.get(index);
+
+                denominator *= AList.get(termIndex) - AList.get(index);
+                Log.v("Numerator", "" + numerator);
+                Log.v("Denominator", "" + denominator);
+            }
+            term += (numerator * BList.get(termIndex)) / denominator;
         }
         return term;
     }

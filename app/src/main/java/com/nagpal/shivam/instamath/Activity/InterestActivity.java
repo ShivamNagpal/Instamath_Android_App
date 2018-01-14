@@ -2,26 +2,35 @@ package com.nagpal.shivam.instamath.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nagpal.shivam.instamath.R;
 
-public class CompoundInterestActivity extends AppCompatActivity {
+public class InterestActivity extends AppCompatActivity {
 
-    private TextView textViewResult;
+    private static final String LOG_TAG = "Interest Activity";
+    private static final String SIMPLE_INTEREST = "Simple Interest";
+    private static final String COMPOUND_INTEREST = "Compound Interest";
+
     private EditText editTextPrincipal;
     private EditText editTextRate;
     private EditText editTextTime;
+    private Spinner interestSpinner;
+    private TextView textViewResult;
+
     private double amount;
+    private double interest;
     private double principalValue;
     private double rateValue;
     private double timeValue;
-    private Button btnResult;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -36,12 +45,17 @@ public class CompoundInterestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_compound_interest);
+        setContentView(R.layout.activity_interest);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
         initViews();
+
+        Button btnResult = (Button) findViewById(R.id.result_button);
+
+        interestSpinner.setAdapter(new ArrayAdapter<>(InterestActivity.this, android.R.layout.simple_spinner_dropdown_item, new String[]{SIMPLE_INTEREST, COMPOUND_INTEREST}));
 
         btnResult.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,24 +63,39 @@ public class CompoundInterestActivity extends AppCompatActivity {
                 String strPrincipalValue;
                 String strRateValue;
                 String strTimeValue;
+                String strDisplay = null;
                 strPrincipalValue = editTextPrincipal.getText().toString();
                 strRateValue = editTextRate.getText().toString();
                 strTimeValue = editTextTime.getText().toString();
 
-                if (!(strPrincipalValue.isEmpty() || strRateValue.isEmpty() || strTimeValue.isEmpty())) {
+                try {
                     principalValue = Double.parseDouble(strPrincipalValue);
                     rateValue = Double.parseDouble(strRateValue);
                     timeValue = Double.parseDouble(strTimeValue);
-                    amount = principalValue * Math.pow((1 + rateValue / 100), timeValue);
-                } else {
-                    amount = Double.NaN;
-                    Toast.makeText(CompoundInterestActivity.this, "Check Values", Toast.LENGTH_SHORT).show();
+                } catch (NumberFormatException e) {
+                    Log.e(LOG_TAG, "Error parsing entered values.", e);
+                    Toast.makeText(InterestActivity.this, "Check Values", Toast.LENGTH_SHORT).show();
+                    return;
                 }
-                String strDisplay = "Amount: " + amount;
+
+                switch (interestSpinner.getSelectedItem().toString()) {
+                    case SIMPLE_INTEREST:
+
+                        interest = (principalValue * rateValue * timeValue) / 100;
+                        strDisplay = "Simple Interest: " + interest;
+                        break;
+
+                    case COMPOUND_INTEREST:
+
+                        amount = principalValue * Math.pow((1 + rateValue / 100), timeValue);
+                        strDisplay = "Amount: " + amount;
+                        break;
+                }
+
                 textViewResult.setText(strDisplay);
+
             }
         });
-
     }
 
     private void initViews() {
@@ -74,6 +103,6 @@ public class CompoundInterestActivity extends AppCompatActivity {
         editTextRate = (EditText) findViewById(R.id.rate_edit_text);
         editTextTime = (EditText) findViewById(R.id.time_edit_text);
         textViewResult = (TextView) findViewById(R.id.result_text_view);
-        btnResult = (Button) findViewById(R.id.result_button);
+        interestSpinner = findViewById(R.id.interest_spinner);
     }
 }

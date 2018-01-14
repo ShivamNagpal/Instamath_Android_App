@@ -8,44 +8,58 @@
     tools:context="com.nagpal.shivam.instamath.Activity.InterpolationActivity">
 
     <LinearLayout
-        android:id="@+id/root_layout_main_activity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <Spinner
+            android:id="@+id/interpolation_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center" />
+
         <LinearLayout
+            android:id="@+id/root_layout_main_activity"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/ENTRY_LAYOUT_HEIGHT"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="X"
-                android:textColor="@android:color/black" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ENTRY_LAYOUT_HEIGHT"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/black" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="X"
+                    android:textColor="@android:color/black" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Y"
-                android:textColor="@android:color/black" />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/black" />
 
-            <Button
-                android:id="@+id/add_new_entry_button"
-                style="@style/Button"
-                android:layout_width="@dimen/ENTRY_BUTTON_WIDTH"
-                android:layout_height="@dimen/ENTRY_BUTTON_HEIGHT"
-                android:text="+" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Y"
+                    android:textColor="@android:color/black" />
+
+                <Button
+                    android:id="@+id/add_new_entry_button"
+                    style="@style/Button"
+                    android:layout_width="@dimen/ENTRY_BUTTON_WIDTH"
+                    android:layout_height="@dimen/ENTRY_BUTTON_HEIGHT"
+                    android:text="+" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -56,9 +70,9 @@
             android:gravity="center">
 
             <TextView
+                android:id="@+id/hypothesis_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="x :"
                 android:textColor="@android:color/black" />
 
             <EditText

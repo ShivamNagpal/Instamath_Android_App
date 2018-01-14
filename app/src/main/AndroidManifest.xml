@@ -30,14 +30,11 @@
             android:name=".Activity.ScientificCalculatorActivity"
             android:label="@string/scientific_calculator" />
         <activity
-            android:name=".Activity.SimpleInterestActivity"
+            android:name=".Activity.InterestActivity"
             android:label="@string/simple_interest" />
         <activity
             android:name=".Activity.InterpolationActivity"
             android:label="@string/interpolation" />
-        <activity
-            android:name=".Activity.CompoundInterestActivity"
-            android:label="@string/compound_interest" />
         <activity android:name=".Activity.PreferencesActivity" />
         <activity android:name=".Activity.NumberConversionActivity"></activity>
     </application>

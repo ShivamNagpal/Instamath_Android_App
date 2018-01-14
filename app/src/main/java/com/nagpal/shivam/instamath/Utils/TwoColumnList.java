@@ -38,4 +38,12 @@ public class TwoColumnList<E> {
         xArrayList.clear();
         yArrayList.clear();
     }
+
+    public ArrayList<E> getXArrayList() {
+        return xArrayList;
+    }
+
+    public ArrayList<E> getYArrayList() {
+        return yArrayList;
+    }
 }
