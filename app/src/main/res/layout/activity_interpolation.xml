@@ -92,7 +92,7 @@
             android:text="SUBMIT" />
 
         <TextView
-            android:id="@+id/result_text_view"
+            android:id="@+id/interest_text_view_result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

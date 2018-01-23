@@ -53,7 +53,7 @@ public class InterestActivity extends AppCompatActivity {
 
         initViews();
 
-        Button btnResult = (Button) findViewById(R.id.result_button);
+        Button btnResult = (Button) findViewById(R.id.interest_button_result);
 
         interestSpinner.setAdapter(new ArrayAdapter<>(InterestActivity.this, android.R.layout.simple_spinner_dropdown_item, new String[]{SIMPLE_INTEREST, COMPOUND_INTEREST}));
 
@@ -99,10 +99,10 @@ public class InterestActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        editTextPrincipal = (EditText) findViewById(R.id.principal_edit_text);
-        editTextRate = (EditText) findViewById(R.id.rate_edit_text);
-        editTextTime = (EditText) findViewById(R.id.time_edit_text);
-        textViewResult = (TextView) findViewById(R.id.result_text_view);
+        editTextPrincipal = (EditText) findViewById(R.id.interest_edit_text_principal);
+        editTextRate = (EditText) findViewById(R.id.interest_edit_text_rate);
+        editTextTime = (EditText) findViewById(R.id.interest_edit_text_time);
+        textViewResult = (TextView) findViewById(R.id.interest_text_view_result);
         interestSpinner = findViewById(R.id.interest_spinner);
     }
 }

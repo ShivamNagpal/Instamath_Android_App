@@ -24,7 +24,7 @@ public class ActivityDetailAdapter extends ArrayAdapter<ActivityDetail> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View listViewItem = convertView;
         if (listViewItem == null) {
-            listViewItem = LayoutInflater.from(getContext()).inflate(R.layout.layout_list_item_activity_main, parent, false);
+            listViewItem = LayoutInflater.from(getContext()).inflate(R.layout.layout_main_list_item, parent, false);
         }
         ActivityDetail currentActivityDetail = getItem(position);
         TextView txtViewActivityName = (TextView) listViewItem.findViewById(R.id.text_view_list_activity_name);

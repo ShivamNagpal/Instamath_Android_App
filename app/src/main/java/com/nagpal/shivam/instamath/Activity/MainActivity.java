@@ -33,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (isSearchOpen) {
-            getMenuInflater().inflate(R.menu.menu_search_open_main_activity, menu);
+            getMenuInflater().inflate(R.menu.main_search_open, menu);
         } else {
-            getMenuInflater().inflate(R.menu.menu_search_close_main_activity, menu);
+            getMenuInflater().inflate(R.menu.main_search_close, menu);
         }
 
         return true;

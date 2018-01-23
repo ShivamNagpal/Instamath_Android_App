@@ -36,7 +36,7 @@ public class HexadecimalValueAdapter extends RecyclerView.Adapter<HexadecimalVal
 
     @Override
     public HexadecimalValueAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Button btn = (Button) LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_grid_item_activity_numberconversion, parent, false);
+        Button btn = (Button) LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_number_conversion_grid_item, parent, false);
         ViewHolder vh = new ViewHolder(btn);
         return vh;
     }

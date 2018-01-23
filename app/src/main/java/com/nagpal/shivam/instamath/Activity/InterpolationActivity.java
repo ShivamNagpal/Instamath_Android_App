@@ -71,7 +71,7 @@ public class InterpolationActivity extends AppCompatActivity {
         llRoot = (LinearLayout) findViewById(R.id.root_layout_main_activity);
         llRoot.setSaveEnabled(true);
         etHypothesis = (EditText) findViewById(R.id.hypothesis_edit_text);
-        tvResult = (TextView) findViewById(R.id.result_text_view);
+        tvResult = (TextView) findViewById(R.id.interest_text_view_result);
         interpolationSpinner = findViewById(R.id.interpolation_spinner);
         hypothesisTV = findViewById(R.id.hypothesis_text_view);
 

@@ -27,7 +27,7 @@ public class PreferenceDetailAdapter extends ArrayAdapter<PreferenceDetail> {
         View listItemView = convertView;
 
         if (listItemView == null) {
-            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.layout_list_item_activity_preferences, parent, false);
+            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.layout_preferences_list_item, parent, false);
         }
         SharedPreferences sharedPreferences = getContext().getSharedPreferences(Constants.PREFERENCES_ACTIVITY_KEY, Context.MODE_PRIVATE);
         final PreferenceDetail currentPreferenceDetail = getItem(position);
