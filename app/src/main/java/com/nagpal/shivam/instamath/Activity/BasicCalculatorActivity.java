@@ -10,10 +10,9 @@ import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.TextView;
 
+import com.nagpal.shivam.expressionparser.Expression;
 import com.nagpal.shivam.instamath.R;
 import com.nagpal.shivam.instamath.Utils.Constants;
-
-import org.mariuszgromada.math.mxparser.Expression;
 
 import java.text.DecimalFormat;
 
@@ -192,7 +191,7 @@ public class BasicCalculatorActivity extends AppCompatActivity {
                 updateExpressionDisplay(stringBuilder.toString());
                 try {
                     Expression expression = new Expression(stringBuilder.toString());
-                    result = expression.calculate();
+                    result = expression.evaluate();
                     result = Double.parseDouble(decimalFormat.format(result));
                     if (Math.abs(result) == 0) {
                         result = Math.abs(result);
