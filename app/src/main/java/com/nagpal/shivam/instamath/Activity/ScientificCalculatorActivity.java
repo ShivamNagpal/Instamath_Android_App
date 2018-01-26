@@ -9,11 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.nagpal.shivam.expressionparser.Expression;
+import com.nagpal.shivam.expressionparser.ExpressionParserException;
 import com.nagpal.shivam.instamath.R;
 import com.nagpal.shivam.instamath.Utils.Constants;
-
-import org.mariuszgromada.math.mxparser.Expression;
 
 import java.text.DecimalFormat;
 
@@ -227,7 +228,7 @@ public class ScientificCalculatorActivity extends AppCompatActivity {
         btnLogBaseTen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                stringBuilder.append("log10(");
+                stringBuilder.append("log(");
                 updateResultDisplay(stringBuilder.toString());
             }
         });
@@ -292,15 +293,19 @@ public class ScientificCalculatorActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 updateExpressionDisplay(stringBuilder.toString());
+                result = Double.NaN;
                 try {
                     Expression expression = new Expression(stringBuilder.toString());
-                    result = expression.calculate();
+                    result = expression.evaluate();
                     result = Double.parseDouble(decimalFormat.format(result));
                     if (Math.abs(result) == 0) {
                         result = Math.abs(result);
                     }
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
+                } catch (ExpressionParserException e) {
+                    e.printStackTrace();
+                    Toast.makeText(ScientificCalculatorActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
                 stringBuilder.setLength(0);
                 stringBuilder.append(result);

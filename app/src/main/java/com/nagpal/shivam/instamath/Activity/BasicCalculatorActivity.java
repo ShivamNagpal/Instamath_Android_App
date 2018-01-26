@@ -9,8 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nagpal.shivam.expressionparser.Expression;
+import com.nagpal.shivam.expressionparser.ExpressionParserException;
 import com.nagpal.shivam.instamath.R;
 import com.nagpal.shivam.instamath.Utils.Constants;
 
@@ -189,6 +191,7 @@ public class BasicCalculatorActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 updateExpressionDisplay(stringBuilder.toString());
+                result = Double.NaN;
                 try {
                     Expression expression = new Expression(stringBuilder.toString());
                     result = expression.evaluate();
@@ -198,6 +201,9 @@ public class BasicCalculatorActivity extends AppCompatActivity {
                     }
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
+                } catch (ExpressionParserException e) {
+                    e.printStackTrace();
+                    Toast.makeText(BasicCalculatorActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
                 stringBuilder.setLength(0);
                 stringBuilder.append(result);
