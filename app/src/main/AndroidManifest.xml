@@ -35,8 +35,8 @@
         <activity
             android:name=".Activity.InterpolationActivity"
             android:label="@string/interpolation" />
-        <activity android:name=".Activity.PreferencesActivity" />
-        <activity android:name=".Activity.NumberConversionActivity"></activity>
+        <activity android:name=".Activity.OldPreferencesActivity" />
+        <activity android:name=".Activity.NumberConversionActivity" />
     </application>
 
 </manifest>

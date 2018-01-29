@@ -53,7 +53,7 @@ public class BasicCalculatorActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.PREFERENCES_ACTIVITY_KEY, MODE_PRIVATE);
 
         StringBuilder patternDecimalFormat = new StringBuilder("#0.");
-        for (int i = 0; i < sharedPreferences.getFloat(PreferencesActivity.PREFERENCES_FIX_KEY, PreferencesActivity.PREFERENCES_FIX_DEFAULT_VALUE); i++) {
+        for (int i = 0; i < sharedPreferences.getFloat(OldPreferencesActivity.PREFERENCES_FIX_KEY, OldPreferencesActivity.PREFERENCES_FIX_DEFAULT_VALUE); i++) {
             patternDecimalFormat.append("0");
         }
         decimalFormat = new DecimalFormat(patternDecimalFormat.toString());

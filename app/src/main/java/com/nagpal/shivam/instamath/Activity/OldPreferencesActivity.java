@@ -20,7 +20,7 @@ import com.nagpal.shivam.instamath.Utils.PreferenceDetail;
 
 import java.util.ArrayList;
 
-public class PreferencesActivity extends AppCompatActivity {
+public class OldPreferencesActivity extends AppCompatActivity {
     public static final String PREFERENCES_FIX_KEY = "preferences_fix_key";
     public static final float PREFERENCES_FIX_DEFAULT_VALUE = 9;
     private ArrayList<PreferenceDetail> preferenceDetailArrayList;
@@ -29,7 +29,7 @@ public class PreferencesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_preferences);
+        setContentView(R.layout.activity_preferences_old);
 
         ListView listView = findViewById(R.id.list_view_activity_preferences);
 
@@ -37,18 +37,18 @@ public class PreferencesActivity extends AppCompatActivity {
 
         preferenceDetailArrayList = new ArrayList<>();
 
-        preferenceDetailArrayList.add(new PreferenceDetail(PreferencesActivity.this, "Fix", PREFERENCES_FIX_KEY, PreferenceDetail.EDIT_TEXT_TYPE, PREFERENCES_FIX_DEFAULT_VALUE, 1, 9, 1));
+        preferenceDetailArrayList.add(new PreferenceDetail(OldPreferencesActivity.this, "Fix", PREFERENCES_FIX_KEY, PreferenceDetail.EDIT_TEXT_TYPE, PREFERENCES_FIX_DEFAULT_VALUE, 1, 9, 1));
 
 
-        PreferenceDetailAdapter preferenceDetailAdapter = new PreferenceDetailAdapter(PreferencesActivity.this, preferenceDetailArrayList);
+        PreferenceDetailAdapter preferenceDetailAdapter = new PreferenceDetailAdapter(OldPreferencesActivity.this, preferenceDetailArrayList);
         listView.setAdapter(preferenceDetailAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 final PreferenceDetail currentPreferenceDetail = preferenceDetailArrayList.get(i);
-                AlertDialog.Builder builder = new AlertDialog.Builder(PreferencesActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(OldPreferencesActivity.this);
                 Spannable title = new SpannableString(currentPreferenceDetail.getName());
-                title.setSpan(new ForegroundColorSpan(ContextCompat.getColor(PreferencesActivity.this, R.color.colorPrimary)), 0, title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                title.setSpan(new ForegroundColorSpan(ContextCompat.getColor(OldPreferencesActivity.this, R.color.colorPrimary)), 0, title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 builder.setTitle(title);
                 builder.setMessage("");
                 builder.setView(currentPreferenceDetail.getView());
