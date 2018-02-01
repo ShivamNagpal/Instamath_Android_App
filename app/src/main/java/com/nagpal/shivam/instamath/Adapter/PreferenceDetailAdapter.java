@@ -36,13 +36,13 @@ public class PreferenceDetailAdapter extends ArrayAdapter<PreferenceDetail> {
         final TextView valueTextView = listItemView.findViewById(R.id.text_view_preference_value);
 
         if (currentPreferenceDetail != null) {
-//            rootLayout.setOnClickListener(currentPreferenceDetail.getOnClickListener());
-            nameTextView.setText(currentPreferenceDetail.getName());
-            valueTextView.setText(Float.toString(sharedPreferences.getFloat(currentPreferenceDetail.getKey(), currentPreferenceDetail.getValue())));
+//            rootLayout.setOnClickListener(currentOldPreferenceDetail.getOnClickListener());
+            nameTextView.setText(currentPreferenceDetail.getTitle());
+            valueTextView.setText(currentPreferenceDetail.getValue());
             sharedPreferences.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
                 @Override
                 public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-                    valueTextView.setText(Float.toString(sharedPreferences.getFloat(currentPreferenceDetail.getKey(), currentPreferenceDetail.getValue())));
+                    valueTextView.setText(currentPreferenceDetail.getValue());
                 }
             });
         }

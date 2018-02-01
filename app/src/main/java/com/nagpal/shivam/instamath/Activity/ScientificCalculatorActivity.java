@@ -52,10 +52,19 @@ public class ScientificCalculatorActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.PREFERENCES_ACTIVITY_KEY, MODE_PRIVATE);
 
         StringBuilder patternDecimalFormat = new StringBuilder("#0.");
-        for (int i = 0; i < sharedPreferences.getFloat(OldPreferencesActivity.PREFERENCES_FIX_KEY, OldPreferencesActivity.PREFERENCES_FIX_DEFAULT_VALUE); i++) {
+        for (int i = 0; i < sharedPreferences.getFloat(PreferencesActivity.PREFERENCES_FIX_KEY, PreferencesActivity.PREFERENCES_FIX_DEFAULT_VALUE); i++) {
             patternDecimalFormat.append("0");
         }
         decimalFormat = new DecimalFormat(patternDecimalFormat.toString());
+
+        switch (PreferencesActivity.PREFERENCE_ANGLE_UNITS[sharedPreferences.getInt(PreferencesActivity.PREFERENCES_ANGLE_UNIT_KEY, PreferencesActivity.PREFERENCES_ANGLE_UNIT_DEFAULT_VALUE)]) {
+            case PreferencesActivity.PREFERENCES_ANGLE_UNIT_DEGREE:
+                Expression.setAngleUnits(Expression.ANGLE_UNITS_DEGREE);
+                break;
+            case PreferencesActivity.PREFERENCES_ANGLE_UNIT_RADIAN:
+                Expression.setAngleUnits(Expression.ANGLE_UNITS_RADIAN);
+                break;
+        }
 
         Button btnZero = (Button) findViewById(R.id.button_scientific_zero);
         btnZero.setOnClickListener(new View.OnClickListener() {

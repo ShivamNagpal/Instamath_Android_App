@@ -8,57 +8,102 @@ import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.nagpal.shivam.instamath.R;
 
 public class PreferenceDetail {
-    public static final int EDIT_TEXT_TYPE = 1;
+
+    public static final byte TYPE_NUMBER = 1;
+    public static final byte TYPE_STRING = 2;
+
+    private byte type;
+
+    private int labelIndex;
 
     private Context context;
-    private String name;
-    private String key;
-    private int type;
-    private float value;
-    private float minVal;
-    private float maxVal;
-    private float stepVal;
 
-    public PreferenceDetail(@NonNull Context context, String name, String key, int type, float defaultVal, float minVal, float maxVal, float stepVal) {
+    private float numberValue;
+    private float maxValue;
+    private float minValue;
+    private float stepValue;
+
+    private String key;
+    private String title;
+    private String[] spinnerLabels;
+
+    private SharedPreferences sharedPreferences;
+
+    public PreferenceDetail(@NonNull Context context, String title, String key, byte type, float defaultValue, float minValue, float maxValue, float stepValue) {
+
         this.context = context;
-        this.name = name;
+        this.title = title;
         this.key = key;
         this.type = type;
-        SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.PREFERENCES_ACTIVITY_KEY, Context.MODE_PRIVATE);
-        this.value = sharedPreferences.getFloat(key, defaultVal);
-        this.minVal = minVal;
-        this.maxVal = maxVal;
-        this.stepVal = stepVal;
+        this.minValue = minValue;
+        this.maxValue = maxValue;
+        this.stepValue = stepValue;
+        sharedPreferences = context.getSharedPreferences(Constants.PREFERENCES_ACTIVITY_KEY, Context.MODE_PRIVATE);
+        numberValue = sharedPreferences.getFloat(key, defaultValue);
     }
 
-    public String getName() {
-        return name;
+    public PreferenceDetail(@NonNull Context context, String title, String key, byte type, int defaultIndex, String[] spinnerLabels) {
+
+        this.context = context;
+        this.title = title;
+        this.key = key;
+        this.type = type;
+        this.spinnerLabels = spinnerLabels;
+        sharedPreferences = context.getSharedPreferences(Constants.PREFERENCES_ACTIVITY_KEY, Context.MODE_PRIVATE);
+        labelIndex = sharedPreferences.getInt(key, defaultIndex);
     }
 
-    public View getView() {
+    public String getValue() {
         switch (type) {
-            case EDIT_TEXT_TYPE:
-                return getEditTextView();
+            case TYPE_NUMBER:
+                return Float.toString(numberValue);
+            case TYPE_STRING:
+                return spinnerLabels[labelIndex];
         }
         return null;
+    }
+
+    public int getLabelIndex() {
+        return labelIndex;
+    }
+
+    public float getNumberValue() {
+        return numberValue;
     }
 
     public String getKey() {
         return key;
     }
 
-    public float getValue() {
-        return value;
+    public String getTitle() {
+        return title;
     }
 
-    View getEditTextView() {
+    public byte getType() {
+        return type;
+    }
+
+    public View getView() {
+        switch (type) {
+            case TYPE_NUMBER:
+                return getNumberTypeView();
+            case TYPE_STRING:
+                return getStringTypeView();
+        }
+        return null;
+    }
+
+    private View getNumberTypeView() {
         Resources resources = context.getResources();
 
         LinearLayout rootLayout = new LinearLayout(context);
@@ -75,7 +120,7 @@ public class PreferenceDetail {
 
         final TextView textView = new TextView(context);
         textView.setLayoutParams(textViewLayoutParams);
-        textView.setText(Float.toString(value));
+        textView.setText(Float.toString(numberValue));
         textView.setGravity(Gravity.CENTER);
         textView.setPadding((int) ConstantMethods.dpToFloat(resources, 16), 0, (int) ConstantMethods.dpToFloat(resources, 16), 0);
 
@@ -93,9 +138,9 @@ public class PreferenceDetail {
         decrement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (value > minVal) {
-                    value -= stepVal;
-                    textView.setText(Float.toString(value));
+                if (numberValue > minValue) {
+                    numberValue -= stepValue;
+                    textView.setText(Float.toString(numberValue));
                 }
             }
         });
@@ -103,9 +148,9 @@ public class PreferenceDetail {
         increment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (value < maxVal) {
-                    value += stepVal;
-                    textView.setText(Float.toString(value));
+                if (numberValue < maxValue) {
+                    numberValue += stepValue;
+                    textView.setText(Float.toString(numberValue));
                 }
             }
         });
@@ -116,9 +161,29 @@ public class PreferenceDetail {
 
         return rootLayout;
     }
-    /*View getEditTextView() {
-        View view = View.inflate(context, R.layout.layout_edit_preference_view, null);
-        return view;
-    }*/
+
+    private View getStringTypeView() {
+        LinearLayout rootLayout = new LinearLayout(context);
+        rootLayout.setGravity(Gravity.CENTER);
+
+        LinearLayout.LayoutParams spinnerLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        Spinner spinner = new Spinner(context);
+        spinner.setLayoutParams(spinnerLayoutParams);
+        spinner.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, spinnerLabels));
+        spinner.setSelection(labelIndex);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                labelIndex = i;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        rootLayout.addView(spinner);
+        return rootLayout;
+    }
 
 }

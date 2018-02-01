@@ -4,6 +4,6 @@
     android:id="@+id/list_view_activity_preferences"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.nagpal.shivam.instamath.Activity.OldPreferencesActivity">
+    tools:context="com.nagpal.shivam.instamath.Activity.PreferencesActivity">
 
 </ListView>

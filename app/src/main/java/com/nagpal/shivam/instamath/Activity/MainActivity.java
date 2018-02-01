@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.preferences_menu_item:
-                startActivity(new Intent(MainActivity.this, OldPreferencesActivity.class));
+                startActivity(new Intent(MainActivity.this, PreferencesActivity.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);
