@@ -96,7 +96,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/drawable_calculator_button_shape"
+                android:background="@drawable/drawable_background_button_expandable"
                 android:text="%" />
 
         </LinearLayout>

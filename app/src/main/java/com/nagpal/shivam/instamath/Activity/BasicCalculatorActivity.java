@@ -1,25 +1,31 @@
 package com.nagpal.shivam.instamath.Activity;
 
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nagpal.shivam.expressionparser.Expression;
 import com.nagpal.shivam.expressionparser.ExpressionParserException;
 import com.nagpal.shivam.instamath.R;
+import com.nagpal.shivam.instamath.Utils.ConstantMethods;
 import com.nagpal.shivam.instamath.Utils.Constants;
 
 import java.text.DecimalFormat;
 
 public class BasicCalculatorActivity extends AppCompatActivity {
 
+    private AlertDialog expandableButtonDialog;
     private StringBuilder stringBuilder;
     private TextView txtViewBasicResultDisplay;
     private TextView txtViewBasicExpressionDisplay;
@@ -57,143 +63,72 @@ public class BasicCalculatorActivity extends AppCompatActivity {
             patternDecimalFormat.append("0");
         }
         decimalFormat = new DecimalFormat(patternDecimalFormat.toString());
-        
-        Button btnZero = (Button) findViewById(R.id.button_basic_zero);
-        btnZero.setOnClickListener(new View.OnClickListener() {
+
+        View.OnClickListener buttonOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                stringBuilder.append("0");
+                stringBuilder.append(((Button) view).getText().toString());
                 updateResultDisplay(stringBuilder.toString());
             }
-        });
-        Button btnOne = (Button) findViewById(R.id.button_basic_one);
-        btnOne.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                stringBuilder.append("1");
-                updateResultDisplay(stringBuilder.toString());
-            }
-        });
-        Button btnTwo = (Button) findViewById(R.id.button_basic_two);
-        btnTwo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                stringBuilder.append("2");
-                updateResultDisplay(stringBuilder.toString());
-            }
-        });
-        Button btnThree = (Button) findViewById(R.id.button_basic_three);
-        btnThree.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                stringBuilder.append("3");
-                updateResultDisplay(stringBuilder.toString());
-            }
-        });
-        Button btnFour = (Button) findViewById(R.id.button_basic_four);
-        btnFour.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                stringBuilder.append("4");
-                updateResultDisplay(stringBuilder.toString());
-            }
-        });
-        Button btnFive = (Button) findViewById(R.id.button_basic_five);
-        btnFive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                stringBuilder.append("5");
-                updateResultDisplay(stringBuilder.toString());
-            }
-        });
-        Button btnSix = (Button) findViewById(R.id.button_basic_six);
-        btnSix.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                stringBuilder.append("6");
-                updateResultDisplay(stringBuilder.toString());
-            }
-        });
-        Button btnSeven = (Button) findViewById(R.id.button_basic_seven);
-        btnSeven.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                stringBuilder.append("7");
-                updateResultDisplay(stringBuilder.toString());
-            }
-        });
-        Button btnEight = (Button) findViewById(R.id.button_basic_eight);
-        btnEight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                stringBuilder.append("8");
-                updateResultDisplay(stringBuilder.toString());
-            }
-        });
-        Button btnNine = (Button) findViewById(R.id.button_basic_nine);
-        btnNine.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                stringBuilder.append("9");
-                updateResultDisplay(stringBuilder.toString());
-            }
-        });
-        Button btnPlus = (Button) findViewById(R.id.button_basic_plus);
-        btnPlus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                stringBuilder.append("+");
-                updateResultDisplay(stringBuilder.toString());
-            }
-        });
-        Button btnMinus = (Button) findViewById(R.id.button_basic_minus);
-        btnMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                stringBuilder.append("-");
-                updateResultDisplay(stringBuilder.toString());
-            }
-        });
-        Button btnMultiply = (Button) findViewById(R.id.button_basic_multiply);
-        btnMultiply.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                stringBuilder.append("*");
-                updateResultDisplay(stringBuilder.toString());
-            }
-        });
-        Button btnDivide = (Button) findViewById(R.id.button_basic_divide);
-        btnDivide.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                stringBuilder.append("/");
-                updateResultDisplay(stringBuilder.toString());
-            }
-        });
-        Button btnPercent = (Button) findViewById(R.id.button_basic_percent);
-        btnPercent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                stringBuilder.append("%");
-                updateResultDisplay(stringBuilder.toString());
-            }
-        });
-        Button btnDot = (Button) findViewById(R.id.button_basic_dot);
-        btnDot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                stringBuilder.append(".");
-                updateResultDisplay(stringBuilder.toString());
-            }
-        });
-        Button btnEquate = (Button) findViewById(R.id.button_basic_equate);
+        };
+
+        Button btnZero = findViewById(R.id.button_basic_zero);
+        btnZero.setOnClickListener(buttonOnClickListener);
+
+        Button btnOne = findViewById(R.id.button_basic_one);
+        btnOne.setOnClickListener(buttonOnClickListener);
+
+        Button btnTwo = findViewById(R.id.button_basic_two);
+        btnTwo.setOnClickListener(buttonOnClickListener);
+
+        Button btnThree = findViewById(R.id.button_basic_three);
+        btnThree.setOnClickListener(buttonOnClickListener);
+
+        Button btnFour = findViewById(R.id.button_basic_four);
+        btnFour.setOnClickListener(buttonOnClickListener);
+
+        Button btnFive = findViewById(R.id.button_basic_five);
+        btnFive.setOnClickListener(buttonOnClickListener);
+
+        Button btnSix = findViewById(R.id.button_basic_six);
+        btnSix.setOnClickListener(buttonOnClickListener);
+
+        Button btnSeven = findViewById(R.id.button_basic_seven);
+        btnSeven.setOnClickListener(buttonOnClickListener);
+
+        Button btnEight = findViewById(R.id.button_basic_eight);
+        btnEight.setOnClickListener(buttonOnClickListener);
+
+        Button btnNine = findViewById(R.id.button_basic_nine);
+        btnNine.setOnClickListener(buttonOnClickListener);
+
+        Button btnPlus = findViewById(R.id.button_basic_plus);
+        btnPlus.setOnClickListener(buttonOnClickListener);
+
+        Button btnMinus = findViewById(R.id.button_basic_minus);
+        btnMinus.setOnClickListener(buttonOnClickListener);
+
+        Button btnMultiply = findViewById(R.id.button_basic_multiply);
+        btnMultiply.setOnClickListener(buttonOnClickListener);
+
+        Button btnDivide = findViewById(R.id.button_basic_divide);
+        btnDivide.setOnClickListener(buttonOnClickListener);
+
+        Button btnPercent = findViewById(R.id.button_basic_percent);
+        btnPercent.setOnClickListener(buttonOnClickListener);
+        btnPercent.setOnLongClickListener(buttonOnLongClickListener(new String[]{"%", "#"}));
+
+        Button btnDot = findViewById(R.id.button_basic_dot);
+        btnDot.setOnClickListener(buttonOnClickListener);
+
+        Button btnEquate = findViewById(R.id.button_basic_equate);
         btnEquate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 updateExpressionDisplay(stringBuilder.toString());
                 result = Double.NaN;
                 try {
-                    Expression expression = new Expression(stringBuilder.toString());
+                    Expression expression = new Expression(convertToExpressionString(stringBuilder.toString()));
                     result = expression.evaluate();
                     result = Double.parseDouble(decimalFormat.format(result));
                     if (Math.abs(result) == 0) {
@@ -215,10 +150,9 @@ public class BasicCalculatorActivity extends AppCompatActivity {
                         hsvResult.fullScroll(View.FOCUS_LEFT);
                     }
                 }, 25);
-//                updateResultDisplay("= " + stringBuilder.toString());
             }
         });
-        Button btnBack = (Button) findViewById(R.id.button_basic_back);
+        Button btnBack = findViewById(R.id.button_basic_back);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -229,7 +163,7 @@ public class BasicCalculatorActivity extends AppCompatActivity {
             }
         });
 
-        Button btnClear = (Button) findViewById(R.id.button_basic_clear);
+        Button btnClear = findViewById(R.id.button_basic_clear);
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -270,5 +204,63 @@ public class BasicCalculatorActivity extends AppCompatActivity {
                 hsvResult.fullScroll(View.FOCUS_RIGHT);
             }
         }, 25);
+    }
+
+    private View showExpandableButtons(String[] buttonLabels) {
+        Resources resources = getResources();
+
+        LinearLayout rootLayout = new LinearLayout(BasicCalculatorActivity.this);
+        rootLayout.setGravity(Gravity.CENTER);
+
+        int buttonMargin = (int) ConstantMethods.dpToFloat(resources, 16);
+
+        LinearLayout.LayoutParams buttonLayoutParams = new LinearLayout.LayoutParams((int) ConstantMethods.dpToFloat(resources, 56), (int) ConstantMethods.dpToFloat(resources, 56));
+        buttonLayoutParams.setMargins(buttonMargin, buttonMargin, buttonMargin, buttonMargin);
+
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stringBuilder.append(((Button) view).getText().toString());
+                updateResultDisplay(stringBuilder.toString());
+                dismissExpandableButtonDialog();
+            }
+        };
+        for (String label : buttonLabels) {
+            Button button = new Button(BasicCalculatorActivity.this);
+            button.setLayoutParams(buttonLayoutParams);
+            button.setText(label);
+            button.setAllCaps(false);
+
+            button.setBackground(resources.getDrawable(R.drawable.drawable_calculator_button_shape));
+            button.setOnClickListener(onClickListener);
+            rootLayout.addView(button);
+        }
+        return rootLayout;
+    }
+
+    private void dismissExpandableButtonDialog() {
+        if (expandableButtonDialog != null) {
+            expandableButtonDialog.dismiss();
+            expandableButtonDialog = null;
+        }
+
+    }
+
+    private String convertToExpressionString(String string) {
+        string = string.replaceAll("x", "*");
+        return string;
+    }
+
+    private View.OnLongClickListener buttonOnLongClickListener(final String[] buttonLabels) {
+        return new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(BasicCalculatorActivity.this);
+                builder.setView(showExpandableButtons(buttonLabels));
+                expandableButtonDialog = builder.create();
+                expandableButtonDialog.show();
+                return true;
+            }
+        };
     }
 }
