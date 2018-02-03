@@ -64,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/drawable_background_button_expandable"
+                android:background="@drawable/drawable_background_button_calculator_expandable"
                 android:text="sin"
                 android:textAllCaps="false" />
 
@@ -73,7 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/drawable_background_button_expandable"
+                android:background="@drawable/drawable_background_button_calculator_expandable"
                 android:text="cos"
                 android:textAllCaps="false" />
 
@@ -82,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/drawable_background_button_expandable"
+                android:background="@drawable/drawable_background_button_calculator_expandable"
                 android:text="tan"
                 android:textAllCaps="false" />
 
@@ -173,7 +173,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/drawable_background_button_expandable"
+                android:background="@drawable/drawable_background_button_calculator_expandable"
                 android:text="\u221A"
                 android:textAllCaps="false" />
 
