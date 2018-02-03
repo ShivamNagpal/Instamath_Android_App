@@ -116,7 +116,7 @@ public class BasicCalculatorActivity extends AppCompatActivity {
 
         Button btnPercent = findViewById(R.id.button_basic_percent);
         btnPercent.setOnClickListener(buttonOnClickListener);
-        btnPercent.setOnLongClickListener(buttonOnLongClickListener(new String[]{"%", "#"}));
+        btnPercent.setOnLongClickListener(buttonOnLongClickListener(btnPercent, new String[]{"%", "#"}));
 
         Button btnDot = findViewById(R.id.button_basic_dot);
         btnDot.setOnClickListener(buttonOnClickListener);
@@ -206,7 +206,7 @@ public class BasicCalculatorActivity extends AppCompatActivity {
         }, 25);
     }
 
-    private View showExpandableButtons(String[] buttonLabels) {
+    private View showExpandableButtons(final Button expandableButton, String[] buttonLabels) {
         Resources resources = getResources();
 
         LinearLayout rootLayout = new LinearLayout(BasicCalculatorActivity.this);
@@ -220,7 +220,9 @@ public class BasicCalculatorActivity extends AppCompatActivity {
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                stringBuilder.append(((Button) view).getText().toString());
+                String string = ((Button) view).getText().toString();
+                expandableButton.setText(string);
+                stringBuilder.append(string);
                 updateResultDisplay(stringBuilder.toString());
                 dismissExpandableButtonDialog();
             }
@@ -252,12 +254,12 @@ public class BasicCalculatorActivity extends AppCompatActivity {
         return string;
     }
 
-    private View.OnLongClickListener buttonOnLongClickListener(final String[] buttonLabels) {
+    private View.OnLongClickListener buttonOnLongClickListener(final Button expandableButton, final String[] buttonLabels) {
         return new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(BasicCalculatorActivity.this);
-                builder.setView(showExpandableButtons(buttonLabels));
+                builder.setView(showExpandableButtons(expandableButton, buttonLabels));
                 expandableButtonDialog = builder.create();
                 expandableButtonDialog.show();
                 return true;

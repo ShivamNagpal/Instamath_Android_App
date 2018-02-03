@@ -121,15 +121,15 @@ public class ScientificCalculatorActivity extends AppCompatActivity {
 
         Button btnSine = findViewById(R.id.button_scientific_sine);
         btnSine.setOnClickListener(buttonOnClickListener(true));
-        btnSine.setOnLongClickListener(buttonOnLongClickListener(new String[]{"sin", "asin"}, true));
+        btnSine.setOnLongClickListener(buttonOnLongClickListener(btnSine, new String[]{"sin", "asin"}, true));
 
         Button btnCosine = findViewById(R.id.button_scientific_cosine);
         btnCosine.setOnClickListener(buttonOnClickListener(true));
-        btnCosine.setOnLongClickListener(buttonOnLongClickListener(new String[]{"cos", "acos"}, true));
+        btnCosine.setOnLongClickListener(buttonOnLongClickListener(btnCosine, new String[]{"cos", "acos"}, true));
 
         Button btnTangent = findViewById(R.id.button_scientific_tangent);
         btnTangent.setOnClickListener(buttonOnClickListener(true));
-        btnTangent.setOnLongClickListener(buttonOnLongClickListener(new String[]{"tan", "atan"}, true));
+        btnTangent.setOnLongClickListener(buttonOnLongClickListener(btnTangent, new String[]{"tan", "atan"}, true));
 
         Button btnFactorial = findViewById(R.id.button_scientific_factorial);
         btnFactorial.setOnClickListener(buttonOnClickListener(false));
@@ -142,7 +142,7 @@ public class ScientificCalculatorActivity extends AppCompatActivity {
 
         Button btnSquareRoot = findViewById(R.id.button_scientific_square_root);
         btnSquareRoot.setOnClickListener(buttonOnClickListener(true));
-        btnSquareRoot.setOnLongClickListener(buttonOnLongClickListener(new String[]{"\u221A", "\u221B"}, true));
+        btnSquareRoot.setOnLongClickListener(buttonOnLongClickListener(btnSquareRoot, new String[]{"\u221A", "\u221B"}, true));
 
         Button btnPower = findViewById(R.id.button_scientific_power);
         btnPower.setOnClickListener(buttonOnClickListener(false));
@@ -253,7 +253,7 @@ public class ScientificCalculatorActivity extends AppCompatActivity {
         }, 25);
     }
 
-    private View showExpandableButtons(String[] buttonLabels, final Boolean isFunction) {
+    private View showExpandableButtons(final Button expandableButton, String[] buttonLabels, final Boolean isFunction) {
         Resources resources = getResources();
 
         LinearLayout rootLayout = new LinearLayout(ScientificCalculatorActivity.this);
@@ -267,7 +267,9 @@ public class ScientificCalculatorActivity extends AppCompatActivity {
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                stringBuilder.append(((Button) view).getText().toString());
+                String string = ((Button) view).getText().toString();
+                expandableButton.setText(string);
+                stringBuilder.append(string);
                 if (isFunction) {
                     stringBuilder.append("(");
                 }
@@ -318,12 +320,12 @@ public class ScientificCalculatorActivity extends AppCompatActivity {
         };
     }
 
-    private View.OnLongClickListener buttonOnLongClickListener(final String[] buttonLabels, final Boolean isFunction) {
+    private View.OnLongClickListener buttonOnLongClickListener(final Button expandableButton, final String[] buttonLabels, final Boolean isFunction) {
         return new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ScientificCalculatorActivity.this);
-                builder.setView(showExpandableButtons(buttonLabels, isFunction));
+                builder.setView(showExpandableButtons(expandableButton, buttonLabels, isFunction));
                 expandableButtonDialog = builder.create();
                 expandableButtonDialog.show();
                 return true;
