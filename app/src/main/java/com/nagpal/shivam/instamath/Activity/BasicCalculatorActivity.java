@@ -231,7 +231,7 @@ public class BasicCalculatorActivity extends AppCompatActivity {
             button.setText(label);
             button.setAllCaps(false);
 
-            button.setBackground(resources.getDrawable(R.drawable.drawable_calculator_button_shape));
+            button.setBackground(resources.getDrawable(R.drawable.drawable_background_button_calculator));
             button.setOnClickListener(onClickListener);
             rootLayout.addView(button);
         }

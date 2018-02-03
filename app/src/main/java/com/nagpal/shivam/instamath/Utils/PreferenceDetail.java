@@ -115,7 +115,7 @@ public class PreferenceDetail {
         Button decrement = new Button(context);
         decrement.setLayoutParams(buttonLayoutParams);
         decrement.setText("-");
-        decrement.setBackground(resources.getDrawable(R.drawable.drawable_button_shape));
+        decrement.setBackground(resources.getDrawable(R.drawable.drawable_background_button));
         decrement.setTextColor(resources.getColor(android.R.color.white));
 
         final TextView textView = new TextView(context);
@@ -127,7 +127,7 @@ public class PreferenceDetail {
         Button increment = new Button(context);
         increment.setLayoutParams(buttonLayoutParams);
         increment.setText("+");
-        increment.setBackground(resources.getDrawable(R.drawable.drawable_button_shape));
+        increment.setBackground(resources.getDrawable(R.drawable.drawable_background_button));
         increment.setTextColor(resources.getColor(android.R.color.white));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

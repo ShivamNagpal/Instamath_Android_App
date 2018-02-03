@@ -200,7 +200,7 @@ public class InterpolationActivity extends AppCompatActivity {
         Button btnRemove = new Button(InterpolationActivity.this);
         btnRemove.setText("-");
         btnRemove.setTextColor(resources.getColor(android.R.color.white));
-        btnRemove.setBackground(resources.getDrawable(R.drawable.drawable_button_shape));
+        btnRemove.setBackground(resources.getDrawable(R.drawable.drawable_background_button));
         btnRemove.setOnClickListener(removeViewClickListener);
         btnRemove.setLayoutParams(new LinearLayout.LayoutParams((int) resources.getDimension(R.dimen.ENTRY_BUTTON_WIDTH), (int) resources.getDimension(R.dimen.ENTRY_BUTTON_HEIGHT)));
         llEntry.addView(et1);

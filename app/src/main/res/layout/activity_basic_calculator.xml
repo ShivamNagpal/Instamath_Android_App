@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/drawable_calculator_button_shape"
+                android:background="@drawable/drawable_background_button_calculator"
                 android:text="AC"
                 android:textColor="@color/colorPrimary" />
 
@@ -69,7 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/drawable_calculator_button_shape"
+                android:background="@drawable/drawable_background_button_calculator"
                 android:text="7" />
 
             <Button
@@ -78,7 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/drawable_calculator_button_shape"
+                android:background="@drawable/drawable_background_button_calculator"
                 android:text="4" />
 
             <Button
@@ -87,7 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/drawable_calculator_button_shape"
+                android:background="@drawable/drawable_background_button_calculator"
                 android:text="1" />
 
             <Button
@@ -113,7 +113,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/drawable_calculator_button_shape"
+                android:background="@drawable/drawable_background_button_calculator"
                 android:text="/" />
 
             <Button
@@ -122,7 +122,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/drawable_calculator_button_shape"
+                android:background="@drawable/drawable_background_button_calculator"
                 android:text="8" />
 
             <Button
@@ -131,7 +131,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/drawable_calculator_button_shape"
+                android:background="@drawable/drawable_background_button_calculator"
                 android:text="5" />
 
             <Button
@@ -140,7 +140,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/drawable_calculator_button_shape"
+                android:background="@drawable/drawable_background_button_calculator"
                 android:text="2" />
 
             <Button
@@ -149,7 +149,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/drawable_calculator_button_shape"
+                android:background="@drawable/drawable_background_button_calculator"
                 android:text="0" />
 
         </LinearLayout>
@@ -167,7 +167,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/drawable_calculator_button_shape"
+                android:background="@drawable/drawable_background_button_calculator"
                 android:text="x"
                 android:textAllCaps="false" />
 
@@ -177,7 +177,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/drawable_calculator_button_shape"
+                android:background="@drawable/drawable_background_button_calculator"
                 android:text="9" />
 
             <Button
@@ -186,7 +186,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/drawable_calculator_button_shape"
+                android:background="@drawable/drawable_background_button_calculator"
                 android:text="6" />
 
             <Button
@@ -195,7 +195,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/drawable_calculator_button_shape"
+                android:background="@drawable/drawable_background_button_calculator"
                 android:text="3" />
 
             <Button
@@ -204,7 +204,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/drawable_calculator_button_shape"
+                android:background="@drawable/drawable_background_button_calculator"
                 android:text="." />
 
         </LinearLayout>
@@ -223,7 +223,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/drawable_calculator_button_shape"
+                android:background="@drawable/drawable_background_button_calculator"
                 android:text="Back" />
 
             <Button
@@ -232,7 +232,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/drawable_calculator_button_shape"
+                android:background="@drawable/drawable_background_button_calculator"
                 android:text="-" />
 
             <Button
@@ -241,7 +241,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/drawable_calculator_button_shape"
+                android:background="@drawable/drawable_background_button_calculator"
                 android:text="+" />
 
 
@@ -251,7 +251,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2"
-                android:background="@drawable/drawable_calculator_button_action_shape"
+                android:background="@drawable/drawable_background_button_calculator_action"
                 android:text="="
                 android:textColor="@android:color/white" />
 
