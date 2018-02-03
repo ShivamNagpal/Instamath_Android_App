@@ -247,7 +247,8 @@ public class BasicCalculatorActivity extends AppCompatActivity {
     }
 
     private String convertToExpressionString(String string) {
-        string = string.replaceAll("x", "*");
+        string = string.replaceAll("\u00D7", "*");
+        string = string.replaceAll("\u00F7", "/");
         return string;
     }
 

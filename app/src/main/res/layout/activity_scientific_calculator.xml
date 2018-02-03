@@ -309,7 +309,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="@drawable/drawable_background_button_calculator"
-                android:text="/" />
+                android:text="\u00F7" />
 
             <Button
                 android:id="@+id/button_scientific_multiply"
@@ -317,7 +317,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="@drawable/drawable_background_button_calculator"
-                android:text="x"
+                android:text="\u00D7"
                 android:textAllCaps="false" />
 
             <Button

@@ -297,7 +297,8 @@ public class ScientificCalculatorActivity extends AppCompatActivity {
     }
 
     private String convertToExpressionString(String string) {
-        string = string.replaceAll("x", "*");
+        string = string.replaceAll("\u00D7", "*");
+        string = string.replaceAll("\u00F7", "/");
         string = string.replaceAll("\u221A", "sqrt");
         string = string.replaceAll("\u221B", "cbrt");
         string = string.replaceAll("\u03C0", "pi");
