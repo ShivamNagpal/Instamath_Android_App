@@ -129,17 +129,17 @@ public class ScientificCalculatorActivity extends AppCompatActivity {
         Button btnSine = findViewById(R.id.button_scientific_sine);
         btnSine.setText(scientificCalculatorSharedPreferences.getString(PREFERENCES_KEY_SINE, "sin"));
         btnSine.setOnClickListener(buttonOnClickListener(true));
-        btnSine.setOnLongClickListener(buttonOnLongClickListener(btnSine, new String[]{"sin", "asin"}, true, PREFERENCES_KEY_SINE));
+        btnSine.setOnLongClickListener(buttonOnLongClickListener(btnSine, new String[]{"sin", "asin", "sinh"}, true, PREFERENCES_KEY_SINE));
 
         Button btnCosine = findViewById(R.id.button_scientific_cosine);
         btnCosine.setText(scientificCalculatorSharedPreferences.getString(PREFERENCES_KEY_COSINE, "cos"));
         btnCosine.setOnClickListener(buttonOnClickListener(true));
-        btnCosine.setOnLongClickListener(buttonOnLongClickListener(btnCosine, new String[]{"cos", "acos"}, true, PREFERENCES_KEY_COSINE));
+        btnCosine.setOnLongClickListener(buttonOnLongClickListener(btnCosine, new String[]{"cos", "acos", "cosh"}, true, PREFERENCES_KEY_COSINE));
 
         Button btnTangent = findViewById(R.id.button_scientific_tangent);
         btnTangent.setText(scientificCalculatorSharedPreferences.getString(PREFERENCES_KEY_TANGENT, "tan"));
         btnTangent.setOnClickListener(buttonOnClickListener(true));
-        btnTangent.setOnLongClickListener(buttonOnLongClickListener(btnTangent, new String[]{"tan", "atan"}, true, PREFERENCES_KEY_TANGENT));
+        btnTangent.setOnLongClickListener(buttonOnLongClickListener(btnTangent, new String[]{"tan", "atan", "tanh"}, true, PREFERENCES_KEY_TANGENT));
 
         Button btnFactorial = findViewById(R.id.button_scientific_factorial);
         btnFactorial.setOnClickListener(buttonOnClickListener(false));
