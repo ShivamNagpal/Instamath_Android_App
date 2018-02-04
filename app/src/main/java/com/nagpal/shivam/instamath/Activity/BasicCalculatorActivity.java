@@ -25,13 +25,16 @@ import java.text.DecimalFormat;
 
 public class BasicCalculatorActivity extends AppCompatActivity {
 
+    private static final String PREFERENCES_KEY_PERCENT = "preferences_key_percent";
+
     private AlertDialog expandableButtonDialog;
+    private DecimalFormat decimalFormat;
+    private double result;
+    private HorizontalScrollView hsvResult;
+    private SharedPreferences basicCalculatorSharedPreferences;
     private StringBuilder stringBuilder;
     private TextView txtViewBasicResultDisplay;
     private TextView txtViewBasicExpressionDisplay;
-    private HorizontalScrollView hsvResult;
-    private double result;
-    private DecimalFormat decimalFormat;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -56,10 +59,11 @@ public class BasicCalculatorActivity extends AppCompatActivity {
 
         initViews();
 
-        SharedPreferences sharedPreferences = getSharedPreferences(Constants.PREFERENCES_ACTIVITY_KEY, MODE_PRIVATE);
+        basicCalculatorSharedPreferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences preferencesSharedPreferences = getSharedPreferences(Constants.PREFERENCES_ACTIVITY_KEY, MODE_PRIVATE);
 
         StringBuilder patternDecimalFormat = new StringBuilder("#0.");
-        for (int i = 0; i < sharedPreferences.getFloat(PreferencesActivity.PREFERENCES_FIX_KEY, PreferencesActivity.PREFERENCES_FIX_DEFAULT_VALUE); i++) {
+        for (int i = 0; i < preferencesSharedPreferences.getFloat(PreferencesActivity.PREFERENCES_FIX_KEY, PreferencesActivity.PREFERENCES_FIX_DEFAULT_VALUE); i++) {
             patternDecimalFormat.append("0");
         }
         decimalFormat = new DecimalFormat(patternDecimalFormat.toString());
@@ -115,8 +119,9 @@ public class BasicCalculatorActivity extends AppCompatActivity {
         btnDivide.setOnClickListener(buttonOnClickListener);
 
         Button btnPercent = findViewById(R.id.button_basic_percent);
+        btnPercent.setText(basicCalculatorSharedPreferences.getString(PREFERENCES_KEY_PERCENT, "%"));
         btnPercent.setOnClickListener(buttonOnClickListener);
-        btnPercent.setOnLongClickListener(buttonOnLongClickListener(btnPercent, new String[]{"%", "#"}));
+        btnPercent.setOnLongClickListener(buttonOnLongClickListener(btnPercent, new String[]{"%", "#"}, PREFERENCES_KEY_PERCENT));
 
         Button btnDot = findViewById(R.id.button_basic_dot);
         btnDot.setOnClickListener(buttonOnClickListener);
@@ -206,7 +211,7 @@ public class BasicCalculatorActivity extends AppCompatActivity {
         }, 25);
     }
 
-    private View showExpandableButtons(final Button expandableButton, String[] buttonLabels) {
+    private View showExpandableButtons(final Button expandableButton, String[] buttonLabels, final String preferenceKey) {
         Resources resources = getResources();
 
         LinearLayout rootLayout = new LinearLayout(BasicCalculatorActivity.this);
@@ -224,6 +229,9 @@ public class BasicCalculatorActivity extends AppCompatActivity {
                 expandableButton.setText(string);
                 stringBuilder.append(string);
                 updateResultDisplay(stringBuilder.toString());
+                SharedPreferences.Editor editor = basicCalculatorSharedPreferences.edit();
+                editor.putString(preferenceKey, string);
+                editor.apply();
                 dismissExpandableButtonDialog();
             }
         };
@@ -254,12 +262,12 @@ public class BasicCalculatorActivity extends AppCompatActivity {
         return string;
     }
 
-    private View.OnLongClickListener buttonOnLongClickListener(final Button expandableButton, final String[] buttonLabels) {
+    private View.OnLongClickListener buttonOnLongClickListener(final Button expandableButton, final String[] buttonLabels, final String preferenceKey) {
         return new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(BasicCalculatorActivity.this);
-                builder.setView(showExpandableButtons(expandableButton, buttonLabels));
+                builder.setView(showExpandableButtons(expandableButton, buttonLabels, preferenceKey));
                 expandableButtonDialog = builder.create();
                 expandableButtonDialog.show();
                 return true;

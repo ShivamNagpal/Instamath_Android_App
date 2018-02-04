@@ -26,13 +26,19 @@ import java.text.DecimalFormat;
 
 public class ScientificCalculatorActivity extends AppCompatActivity {
 
+    private static final String PREFERENCES_KEY_SINE = "preferences_key_sine";
+    private static final String PREFERENCES_KEY_COSINE = "preferences_key_cosine";
+    private static final String PREFERENCES_KEY_TANGENT = "preferences_key_tangent";
+    private static final String PREFERENCES_KEY_SQRT = "preferences_key_sqrt";
+
     private AlertDialog expandableButtonDialog;
+    private DecimalFormat decimalFormat;
+    private double result;
+    private HorizontalScrollView hsvResult;
+    private SharedPreferences scientificCalculatorSharedPreferences;
     private StringBuilder stringBuilder;
     private TextView txtViewScientificResultDisplay;
     private TextView txtViewScientificExpressionDisplay;
-    private HorizontalScrollView hsvResult;
-    private double result;
-    private DecimalFormat decimalFormat;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -55,15 +61,16 @@ public class ScientificCalculatorActivity extends AppCompatActivity {
         stringBuilder = new StringBuilder();
         initViews();
 
-        SharedPreferences sharedPreferences = getSharedPreferences(Constants.PREFERENCES_ACTIVITY_KEY, MODE_PRIVATE);
+        scientificCalculatorSharedPreferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences preferencesSharedPreferences = getSharedPreferences(Constants.PREFERENCES_ACTIVITY_KEY, MODE_PRIVATE);
 
         StringBuilder patternDecimalFormat = new StringBuilder("#0.");
-        for (int i = 0; i < sharedPreferences.getFloat(PreferencesActivity.PREFERENCES_FIX_KEY, PreferencesActivity.PREFERENCES_FIX_DEFAULT_VALUE); i++) {
+        for (int i = 0; i < preferencesSharedPreferences.getFloat(PreferencesActivity.PREFERENCES_FIX_KEY, PreferencesActivity.PREFERENCES_FIX_DEFAULT_VALUE); i++) {
             patternDecimalFormat.append("0");
         }
         decimalFormat = new DecimalFormat(patternDecimalFormat.toString());
 
-        switch (PreferencesActivity.PREFERENCE_ANGLE_UNITS[sharedPreferences.getInt(PreferencesActivity.PREFERENCES_ANGLE_UNIT_KEY, PreferencesActivity.PREFERENCES_ANGLE_UNIT_DEFAULT_VALUE)]) {
+        switch (PreferencesActivity.PREFERENCE_ANGLE_UNITS[preferencesSharedPreferences.getInt(PreferencesActivity.PREFERENCES_ANGLE_UNIT_KEY, PreferencesActivity.PREFERENCES_ANGLE_UNIT_DEFAULT_VALUE)]) {
             case PreferencesActivity.PREFERENCES_ANGLE_UNIT_DEGREE:
                 Expression.setAngleUnits(Expression.ANGLE_UNITS_DEGREE);
                 break;
@@ -120,16 +127,19 @@ public class ScientificCalculatorActivity extends AppCompatActivity {
         btnDot.setOnClickListener(buttonOnClickListener(false));
 
         Button btnSine = findViewById(R.id.button_scientific_sine);
+        btnSine.setText(scientificCalculatorSharedPreferences.getString(PREFERENCES_KEY_SINE, "sin"));
         btnSine.setOnClickListener(buttonOnClickListener(true));
-        btnSine.setOnLongClickListener(buttonOnLongClickListener(btnSine, new String[]{"sin", "asin"}, true));
+        btnSine.setOnLongClickListener(buttonOnLongClickListener(btnSine, new String[]{"sin", "asin"}, true, PREFERENCES_KEY_SINE));
 
         Button btnCosine = findViewById(R.id.button_scientific_cosine);
+        btnCosine.setText(scientificCalculatorSharedPreferences.getString(PREFERENCES_KEY_COSINE, "cos"));
         btnCosine.setOnClickListener(buttonOnClickListener(true));
-        btnCosine.setOnLongClickListener(buttonOnLongClickListener(btnCosine, new String[]{"cos", "acos"}, true));
+        btnCosine.setOnLongClickListener(buttonOnLongClickListener(btnCosine, new String[]{"cos", "acos"}, true, PREFERENCES_KEY_COSINE));
 
         Button btnTangent = findViewById(R.id.button_scientific_tangent);
+        btnTangent.setText(scientificCalculatorSharedPreferences.getString(PREFERENCES_KEY_TANGENT, "tan"));
         btnTangent.setOnClickListener(buttonOnClickListener(true));
-        btnTangent.setOnLongClickListener(buttonOnLongClickListener(btnTangent, new String[]{"tan", "atan"}, true));
+        btnTangent.setOnLongClickListener(buttonOnLongClickListener(btnTangent, new String[]{"tan", "atan"}, true, PREFERENCES_KEY_TANGENT));
 
         Button btnFactorial = findViewById(R.id.button_scientific_factorial);
         btnFactorial.setOnClickListener(buttonOnClickListener(false));
@@ -141,8 +151,9 @@ public class ScientificCalculatorActivity extends AppCompatActivity {
         btnLogBaseTen.setOnClickListener(buttonOnClickListener(true));
 
         Button btnSquareRoot = findViewById(R.id.button_scientific_square_root);
+        btnSquareRoot.setText(scientificCalculatorSharedPreferences.getString(PREFERENCES_KEY_SQRT, "\u221A"));
         btnSquareRoot.setOnClickListener(buttonOnClickListener(true));
-        btnSquareRoot.setOnLongClickListener(buttonOnLongClickListener(btnSquareRoot, new String[]{"\u221A", "\u221B"}, true));
+        btnSquareRoot.setOnLongClickListener(buttonOnLongClickListener(btnSquareRoot, new String[]{"\u221A", "\u221B"}, true, PREFERENCES_KEY_SQRT));
 
         Button btnPower = findViewById(R.id.button_scientific_power);
         btnPower.setOnClickListener(buttonOnClickListener(false));
@@ -253,7 +264,7 @@ public class ScientificCalculatorActivity extends AppCompatActivity {
         }, 25);
     }
 
-    private View showExpandableButtons(final Button expandableButton, String[] buttonLabels, final Boolean isFunction) {
+    private View showExpandableButtons(final Button expandableButton, String[] buttonLabels, final Boolean isFunction, final String preferenceKey) {
         Resources resources = getResources();
 
         LinearLayout rootLayout = new LinearLayout(ScientificCalculatorActivity.this);
@@ -274,6 +285,9 @@ public class ScientificCalculatorActivity extends AppCompatActivity {
                     stringBuilder.append("(");
                 }
                 updateResultDisplay(stringBuilder.toString());
+                SharedPreferences.Editor editor = scientificCalculatorSharedPreferences.edit();
+                editor.putString(preferenceKey, string);
+                editor.apply();
                 dismissExpandableButtonDialog();
             }
         };
@@ -320,12 +334,12 @@ public class ScientificCalculatorActivity extends AppCompatActivity {
         };
     }
 
-    private View.OnLongClickListener buttonOnLongClickListener(final Button expandableButton, final String[] buttonLabels, final Boolean isFunction) {
+    private View.OnLongClickListener buttonOnLongClickListener(final Button expandableButton, final String[] buttonLabels, final Boolean isFunction, final String preferenceKey) {
         return new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ScientificCalculatorActivity.this);
-                builder.setView(showExpandableButtons(expandableButton, buttonLabels, isFunction));
+                builder.setView(showExpandableButtons(expandableButton, buttonLabels, isFunction, preferenceKey));
                 expandableButtonDialog = builder.create();
                 expandableButtonDialog.show();
                 return true;
