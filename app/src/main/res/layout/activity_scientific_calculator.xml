@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.nagpal.shivam.instamath.Activity.ScientificCalculatorActivity">
+    tools:context="com.nagpal.shivam.instamath.Activity.ScientificCalculatorActivity"
+    tools:ignore="HardcodedText">
 
     <HorizontalScrollView
         android:layout_width="match_parent"
@@ -42,7 +43,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.7">
+        android:layout_weight="0.7"
+        android:baselineAligned="false"
+        tools:ignore="NestedWeights">
 
         <LinearLayout
             android:layout_width="0dp"
