@@ -76,57 +76,57 @@ public class BasicCalculatorActivity extends AppCompatActivity {
             }
         };
 
-        Button btnZero = findViewById(R.id.button_basic_zero);
+        Button btnZero = findViewById(R.id.basic_calculator_button_zero);
         btnZero.setOnClickListener(buttonOnClickListener);
 
-        Button btnOne = findViewById(R.id.button_basic_one);
+        Button btnOne = findViewById(R.id.basic_calculator_button_one);
         btnOne.setOnClickListener(buttonOnClickListener);
 
-        Button btnTwo = findViewById(R.id.button_basic_two);
+        Button btnTwo = findViewById(R.id.basic_calculator_button_two);
         btnTwo.setOnClickListener(buttonOnClickListener);
 
-        Button btnThree = findViewById(R.id.button_basic_three);
+        Button btnThree = findViewById(R.id.basic_calculator_button_three);
         btnThree.setOnClickListener(buttonOnClickListener);
 
-        Button btnFour = findViewById(R.id.button_basic_four);
+        Button btnFour = findViewById(R.id.basic_calculator_button_four);
         btnFour.setOnClickListener(buttonOnClickListener);
 
-        Button btnFive = findViewById(R.id.button_basic_five);
+        Button btnFive = findViewById(R.id.basic_calculator_button_five);
         btnFive.setOnClickListener(buttonOnClickListener);
 
-        Button btnSix = findViewById(R.id.button_basic_six);
+        Button btnSix = findViewById(R.id.basic_calculator_button_six);
         btnSix.setOnClickListener(buttonOnClickListener);
 
-        Button btnSeven = findViewById(R.id.button_basic_seven);
+        Button btnSeven = findViewById(R.id.basic_calculator_button_seven);
         btnSeven.setOnClickListener(buttonOnClickListener);
 
-        Button btnEight = findViewById(R.id.button_basic_eight);
+        Button btnEight = findViewById(R.id.basic_calculator_button_eight);
         btnEight.setOnClickListener(buttonOnClickListener);
 
-        Button btnNine = findViewById(R.id.button_basic_nine);
+        Button btnNine = findViewById(R.id.basic_calculator_button_nine);
         btnNine.setOnClickListener(buttonOnClickListener);
 
-        Button btnPlus = findViewById(R.id.button_basic_plus);
+        Button btnPlus = findViewById(R.id.basic_calculator_button_plus);
         btnPlus.setOnClickListener(buttonOnClickListener);
 
-        Button btnMinus = findViewById(R.id.button_basic_minus);
+        Button btnMinus = findViewById(R.id.basic_calculator_button_minus);
         btnMinus.setOnClickListener(buttonOnClickListener);
 
-        Button btnMultiply = findViewById(R.id.button_basic_multiply);
+        Button btnMultiply = findViewById(R.id.basic_calculator_button_multiply);
         btnMultiply.setOnClickListener(buttonOnClickListener);
 
-        Button btnDivide = findViewById(R.id.button_basic_divide);
+        Button btnDivide = findViewById(R.id.basic_calculator_button_divide);
         btnDivide.setOnClickListener(buttonOnClickListener);
 
-        Button btnPercent = findViewById(R.id.button_basic_percent);
+        Button btnPercent = findViewById(R.id.basic_calculator_button_percent);
         btnPercent.setText(basicCalculatorSharedPreferences.getString(PREFERENCES_KEY_PERCENT, "%"));
         btnPercent.setOnClickListener(buttonOnClickListener);
         btnPercent.setOnLongClickListener(buttonOnLongClickListener(btnPercent, new String[]{"%", "#"}, PREFERENCES_KEY_PERCENT));
 
-        Button btnDot = findViewById(R.id.button_basic_dot);
+        Button btnDot = findViewById(R.id.basic_calculator_button_dot);
         btnDot.setOnClickListener(buttonOnClickListener);
 
-        Button btnEquate = findViewById(R.id.button_basic_equate);
+        Button btnEquate = findViewById(R.id.basic_calculator_button_equate);
         btnEquate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -157,7 +157,7 @@ public class BasicCalculatorActivity extends AppCompatActivity {
                 }, 25);
             }
         });
-        Button btnBack = findViewById(R.id.button_basic_back);
+        Button btnBack = findViewById(R.id.basic_calculator_button_back);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -168,7 +168,7 @@ public class BasicCalculatorActivity extends AppCompatActivity {
             }
         });
 
-        Button btnClear = findViewById(R.id.button_basic_clear);
+        Button btnClear = findViewById(R.id.basic_calculator_button_clear);
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -192,8 +192,8 @@ public class BasicCalculatorActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        txtViewBasicResultDisplay = findViewById(R.id.text_view_basic_result_display);
-        txtViewBasicExpressionDisplay = findViewById(R.id.text_view_basic_expression_display);
+        txtViewBasicResultDisplay = findViewById(R.id.basic_calculator_text_view_result);
+        txtViewBasicExpressionDisplay = findViewById(R.id.basic_calculator_text_view_expression);
         hsvResult = (HorizontalScrollView) txtViewBasicResultDisplay.getParent();
     }
 
