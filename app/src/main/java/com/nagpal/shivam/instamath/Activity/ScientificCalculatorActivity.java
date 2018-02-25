@@ -175,6 +175,9 @@ public class ScientificCalculatorActivity extends AppCompatActivity {
         btnEquate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (stringBuilder.length() == 0) {
+                    return;
+                }
                 updateExpressionDisplay(stringBuilder.toString());
                 result = Double.NaN;
                 try {
@@ -217,7 +220,7 @@ public class ScientificCalculatorActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 stringBuilder.setLength(0);
-                updateResultDisplay("0");
+                updateResultDisplay(null);
                 updateExpressionDisplay(null);
             }
         });

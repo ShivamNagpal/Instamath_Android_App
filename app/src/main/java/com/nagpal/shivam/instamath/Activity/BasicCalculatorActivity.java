@@ -130,6 +130,9 @@ public class BasicCalculatorActivity extends AppCompatActivity {
         btnEquate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (stringBuilder.length()==0) {
+                    return;
+                }
                 updateExpressionDisplay(stringBuilder.toString());
                 result = Double.NaN;
                 try {
@@ -174,7 +177,7 @@ public class BasicCalculatorActivity extends AppCompatActivity {
             public void onClick(View view) {
                 stringBuilder.setLength(0);
                 updateExpressionDisplay(null);
-                updateResultDisplay("0");
+                updateResultDisplay(null);
             }
         });
         txtViewBasicExpressionDisplay.setOnClickListener(new View.OnClickListener() {
