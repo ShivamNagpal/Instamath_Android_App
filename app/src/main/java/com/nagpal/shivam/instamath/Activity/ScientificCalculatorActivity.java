@@ -20,8 +20,11 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,6 +36,7 @@ import android.widget.Toast;
 
 import com.nagpal.shivam.expressionparser.Expression;
 import com.nagpal.shivam.expressionparser.ExpressionParserException;
+import com.nagpal.shivam.instamath.Adapter.BottomSheetAdapter;
 import com.nagpal.shivam.instamath.R;
 import com.nagpal.shivam.instamath.Utils.ConstantMethods;
 import com.nagpal.shivam.instamath.Utils.Constants;
@@ -40,12 +44,13 @@ import com.nagpal.shivam.instamath.Utils.Constants;
 import java.text.DecimalFormat;
 
 
-public class ScientificCalculatorActivity extends AppCompatActivity {
+public class ScientificCalculatorActivity extends AppCompatActivity implements BottomSheetAdapter.ClickHandler {
 
     private static final String PREFERENCES_KEY_SINE = "preferences_key_sine";
     private static final String PREFERENCES_KEY_COSINE = "preferences_key_cosine";
     private static final String PREFERENCES_KEY_TANGENT = "preferences_key_tangent";
     private static final String PREFERENCES_KEY_SQRT = "preferences_key_sqrt";
+    private static final String PREFERENCES_KEY_LOG = "preferences_key_log";
 
     private AlertDialog expandableButtonDialog;
     private DecimalFormat decimalFormat;
@@ -55,6 +60,8 @@ public class ScientificCalculatorActivity extends AppCompatActivity {
     private StringBuilder stringBuilder;
     private TextView txtViewScientificResultDisplay;
     private TextView txtViewScientificExpressionDisplay;
+    private RecyclerView bottomSheetRecyclerView;
+    private BottomSheetBehavior bottomSheetBehavior;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -96,6 +103,9 @@ public class ScientificCalculatorActivity extends AppCompatActivity {
         }
 
         Expression.setNormalizeTrigonometricFunctions(true);
+
+        View bottomSheet = findViewById(R.id.scientific_bottom_sheet);
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
 
         Button btnZero = findViewById(R.id.button_scientific_zero);
         btnZero.setOnClickListener(buttonOnClickListener(false));
@@ -161,10 +171,17 @@ public class ScientificCalculatorActivity extends AppCompatActivity {
         btnFactorial.setOnClickListener(buttonOnClickListener(false));
 
         Button btnNaturalLog = findViewById(R.id.button_scientific_natural_log);
+        btnNaturalLog.setText(scientificCalculatorSharedPreferences.getString(PREFERENCES_KEY_LOG, "ln"));
         btnNaturalLog.setOnClickListener(buttonOnClickListener(true));
+        btnNaturalLog.setOnLongClickListener(buttonOnLongClickListener(btnNaturalLog, new String[]{"ln", "log"}, true, PREFERENCES_KEY_LOG));
 
-        Button btnLogBaseTen = findViewById(R.id.button_scientific_log_base_ten);
-        btnLogBaseTen.setOnClickListener(buttonOnClickListener(true));
+        Button btnBottomSheetToggle = findViewById(R.id.button_scientific_bottom_sheet_toggle);
+        btnBottomSheetToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            }
+        });
 
         Button btnSquareRoot = findViewById(R.id.button_scientific_square_root);
         btnSquareRoot.setText(scientificCalculatorSharedPreferences.getString(PREFERENCES_KEY_SQRT, "\u221A"));
@@ -253,7 +270,11 @@ public class ScientificCalculatorActivity extends AppCompatActivity {
                 updateExpressionDisplay(null);
             }
         });
-
+        bottomSheetRecyclerView = findViewById(R.id.scientific_bottom_sheet_recycler_view);
+        bottomSheetRecyclerView.setLayoutManager(new LinearLayoutManager(ScientificCalculatorActivity.this, LinearLayoutManager.HORIZONTAL, false));
+        bottomSheetRecyclerView.setHasFixedSize(true);
+        BottomSheetAdapter bottomSheetAdapter = new BottomSheetAdapter(new String[]{"sin(", "cos(", "tan("}, this);
+        bottomSheetRecyclerView.setAdapter(bottomSheetAdapter);
     }
 
     private void initViews() {
@@ -367,4 +388,9 @@ public class ScientificCalculatorActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBottomSheetAdapterItemClick(String s) {
+        stringBuilder.append(s);
+        updateResultDisplay(stringBuilder.toString());
+    }
 }
