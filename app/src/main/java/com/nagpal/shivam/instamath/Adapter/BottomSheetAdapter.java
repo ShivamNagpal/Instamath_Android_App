@@ -24,16 +24,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.nagpal.shivam.instamath.R;
+import com.nagpal.shivam.instamath.Utils.ExpressionToken;
+
+import java.util.ArrayList;
 
 public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.BottomSheetAdapterViewHolder> {
 
-    private String[] buttonValues;
-    private ClickHandler clickHandler;
+    private ArrayList<ExpressionToken> buttonValues;
+    private ItemClickHandler itemClickHandler;
 
-    public BottomSheetAdapter(String[] buttonValues, ClickHandler clickHandler) {
+    public BottomSheetAdapter(ArrayList<ExpressionToken> buttonValues) {
         this.buttonValues = buttonValues;
         notifyDataSetChanged();
-        this.clickHandler = clickHandler;
+    }
+
+    public void setItemClickHandler(ItemClickHandler itemClickHandler) {
+        this.itemClickHandler = itemClickHandler;
     }
 
     @NonNull
@@ -45,7 +51,8 @@ public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull BottomSheetAdapterViewHolder holder, int position) {
-        holder.button.setText(buttonValues[position]);
+        holder.button.setText(buttonValues.get(position).getToken());
+        holder.position = holder.getAdapterPosition();
     }
 
     @Override
@@ -53,15 +60,16 @@ public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.
         if (buttonValues == null) {
             return 0;
         }
-        return buttonValues.length;
+        return buttonValues.size();
     }
 
-    public interface ClickHandler {
-        void onBottomSheetAdapterItemClick(String s);
+    public interface ItemClickHandler {
+        void onBottomSheetAdapterItemClick(String token, boolean isFunction);
     }
 
     class BottomSheetAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         Button button;
+        int position;
 
         BottomSheetAdapterViewHolder(View itemView) {
             super(itemView);
@@ -71,7 +79,9 @@ public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.
 
         @Override
         public void onClick(View view) {
-            clickHandler.onBottomSheetAdapterItemClick(((Button) view).getText().toString());
+            if (itemClickHandler != null) {
+                itemClickHandler.onBottomSheetAdapterItemClick(((Button) view).getText().toString(), buttonValues.get(position).isFunction());
+            }
         }
     }
 }

@@ -40,11 +40,13 @@ import com.nagpal.shivam.instamath.Adapter.BottomSheetAdapter;
 import com.nagpal.shivam.instamath.R;
 import com.nagpal.shivam.instamath.Utils.ConstantMethods;
 import com.nagpal.shivam.instamath.Utils.Constants;
+import com.nagpal.shivam.instamath.Utils.ExpressionToken;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 
-public class ScientificCalculatorActivity extends AppCompatActivity implements BottomSheetAdapter.ClickHandler {
+public class ScientificCalculatorActivity extends AppCompatActivity implements BottomSheetAdapter.ItemClickHandler {
 
     private static final String PREFERENCES_KEY_SINE = "preferences_key_sine";
     private static final String PREFERENCES_KEY_COSINE = "preferences_key_cosine";
@@ -273,7 +275,15 @@ public class ScientificCalculatorActivity extends AppCompatActivity implements B
         bottomSheetRecyclerView = findViewById(R.id.scientific_bottom_sheet_recycler_view);
         bottomSheetRecyclerView.setLayoutManager(new LinearLayoutManager(ScientificCalculatorActivity.this, LinearLayoutManager.HORIZONTAL, false));
         bottomSheetRecyclerView.setHasFixedSize(true);
-        BottomSheetAdapter bottomSheetAdapter = new BottomSheetAdapter(new String[]{"sin(", "cos(", "tan("}, this);
+        ArrayList<ExpressionToken> expressionTokenArrayList = new ArrayList<>();
+
+        expressionTokenArrayList.add(new ExpressionToken("e", false));
+        expressionTokenArrayList.add(new ExpressionToken("sin", true));
+        expressionTokenArrayList.add(new ExpressionToken("cos", true));
+        expressionTokenArrayList.add(new ExpressionToken("tan", true));
+
+        BottomSheetAdapter bottomSheetAdapter = new BottomSheetAdapter(expressionTokenArrayList);
+        bottomSheetAdapter.setItemClickHandler(this);
         bottomSheetRecyclerView.setAdapter(bottomSheetAdapter);
     }
 
@@ -387,10 +397,22 @@ public class ScientificCalculatorActivity extends AppCompatActivity implements B
         };
     }
 
+    @Override
+    public void onBackPressed() {
+        if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            return;
+        }
+        super.onBackPressed();
+    }
+
 
     @Override
-    public void onBottomSheetAdapterItemClick(String s) {
-        stringBuilder.append(s);
+    public void onBottomSheetAdapterItemClick(String token, boolean isFunction) {
+        stringBuilder.append(token);
+        if (isFunction) {
+            stringBuilder.append("(");
+        }
         updateResultDisplay(stringBuilder.toString());
     }
 }
