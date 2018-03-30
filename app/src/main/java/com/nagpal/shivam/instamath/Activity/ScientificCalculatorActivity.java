@@ -54,6 +54,10 @@ public class ScientificCalculatorActivity extends AppCompatActivity implements B
     private static final String PREFERENCES_KEY_SQRT = "preferences_key_sqrt";
     private static final String PREFERENCES_KEY_LOG = "preferences_key_log";
 
+    private static final String UNICODE_SQRT = "\u221A";
+    private static final String UNICODE_CBRT = "\u221B";
+    private static final String UNICODE_PI = "\u03C0";
+
     private AlertDialog expandableButtonDialog;
     private DecimalFormat decimalFormat;
     private double result;
@@ -186,9 +190,9 @@ public class ScientificCalculatorActivity extends AppCompatActivity implements B
         });
 
         Button btnSquareRoot = findViewById(R.id.button_scientific_square_root);
-        btnSquareRoot.setText(scientificCalculatorSharedPreferences.getString(PREFERENCES_KEY_SQRT, "\u221A"));
+        btnSquareRoot.setText(scientificCalculatorSharedPreferences.getString(PREFERENCES_KEY_SQRT, UNICODE_SQRT));
         btnSquareRoot.setOnClickListener(buttonOnClickListener(true));
-        btnSquareRoot.setOnLongClickListener(buttonOnLongClickListener(btnSquareRoot, new String[]{"\u221A", "\u221B"}, true, PREFERENCES_KEY_SQRT));
+        btnSquareRoot.setOnLongClickListener(buttonOnLongClickListener(btnSquareRoot, new String[]{UNICODE_SQRT, UNICODE_CBRT}, true, PREFERENCES_KEY_SQRT));
 
         Button btnPower = findViewById(R.id.button_scientific_power);
         btnPower.setOnClickListener(buttonOnClickListener(false));
@@ -278,9 +282,18 @@ public class ScientificCalculatorActivity extends AppCompatActivity implements B
         ArrayList<ExpressionToken> expressionTokenArrayList = new ArrayList<>();
 
         expressionTokenArrayList.add(new ExpressionToken("e", false));
+        expressionTokenArrayList.add(new ExpressionToken(UNICODE_PI, false));
+        expressionTokenArrayList.add(new ExpressionToken(UNICODE_SQRT, true));
+        expressionTokenArrayList.add(new ExpressionToken(UNICODE_CBRT, true));
         expressionTokenArrayList.add(new ExpressionToken("sin", true));
         expressionTokenArrayList.add(new ExpressionToken("cos", true));
         expressionTokenArrayList.add(new ExpressionToken("tan", true));
+        expressionTokenArrayList.add(new ExpressionToken("asin", true));
+        expressionTokenArrayList.add(new ExpressionToken("acos", true));
+        expressionTokenArrayList.add(new ExpressionToken("atan", true));
+        expressionTokenArrayList.add(new ExpressionToken("sinh", true));
+        expressionTokenArrayList.add(new ExpressionToken("cosh", true));
+        expressionTokenArrayList.add(new ExpressionToken("tanh", true));
 
         BottomSheetAdapter bottomSheetAdapter = new BottomSheetAdapter(expressionTokenArrayList);
         bottomSheetAdapter.setItemClickHandler(this);
