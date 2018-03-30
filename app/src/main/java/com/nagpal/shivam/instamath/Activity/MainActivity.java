@@ -84,13 +84,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolbar = (Toolbar) findViewById(R.id.main_activity_toolbar_default);
+        toolbar = findViewById(R.id.main_activity_toolbar_default);
         setSupportActionBar(toolbar);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             defaultToolbarElevation = toolbar.getElevation();
         }
-//        Toast.makeText(MainActivity.this, "" + defaultToolbarElevation, Toast.LENGTH_LONG).show();
-        ListView listView = (ListView) findViewById(R.id.list_view_activity);
+        ListView listView = findViewById(R.id.list_view_activity);
 
 
         mActivityDetailArrayList = new ArrayList<>();
@@ -98,8 +97,8 @@ public class MainActivity extends AppCompatActivity {
         mActivityDetailArrayList.add(new ActivityDetail("Basic Calculator", BasicCalculatorActivity.class));
         mActivityDetailArrayList.add(new ActivityDetail("Scientific Calculator", ScientificCalculatorActivity.class));
         mActivityDetailArrayList.add(new ActivityDetail("Interest", InterestActivity.class));
-//        mActivityDetailArrayList.add(new ActivityDetail("Compound Interest", CompoundInterestActivity.class));
         mActivityDetailArrayList.add(new ActivityDetail("Interpolation", InterpolationActivity.class));
+        mActivityDetailArrayList.add(new ActivityDetail("Factorization", FactorizationActivity.class));
         mActivityDetailArrayList.add(new ActivityDetail("Number Conversion", NumberConversionActivity.class));
 
         ActivityDetailAdapter activityDetailAdapter = new ActivityDetailAdapter(this, mActivityDetailArrayList);
