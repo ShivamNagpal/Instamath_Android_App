@@ -53,6 +53,7 @@ public class ScientificCalculatorActivity extends AppCompatActivity implements B
     private static final String PREFERENCES_KEY_TANGENT = "preferences_key_tangent";
     private static final String PREFERENCES_KEY_SQRT = "preferences_key_sqrt";
     private static final String PREFERENCES_KEY_LOG = "preferences_key_log";
+    private static final String PREFERENCES_KEY_DOT = "preferences_key_dot";
 
     private static final String UNICODE_SQRT = "\u221A";
     private static final String UNICODE_CBRT = "\u221B";
@@ -156,7 +157,9 @@ public class ScientificCalculatorActivity extends AppCompatActivity implements B
         btnDivide.setOnClickListener(buttonOnClickListener(false));
 
         Button btnDot = findViewById(R.id.button_scientific_dot);
+        btnDot.setText(scientificCalculatorSharedPreferences.getString(PREFERENCES_KEY_DOT, "."));
         btnDot.setOnClickListener(buttonOnClickListener(false));
+        btnDot.setOnLongClickListener(buttonOnLongClickListener(btnDot, new String[]{".", ","}, false, PREFERENCES_KEY_DOT));
 
         Button btnSine = findViewById(R.id.button_scientific_sine);
         btnSine.setText(scientificCalculatorSharedPreferences.getString(PREFERENCES_KEY_SINE, "sin"));
@@ -231,6 +234,8 @@ public class ScientificCalculatorActivity extends AppCompatActivity implements B
                 } catch (ExpressionParserException e) {
                     e.printStackTrace();
                     Toast.makeText(ScientificCalculatorActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 stringBuilder.setLength(0);
                 stringBuilder.append(result);
@@ -281,6 +286,10 @@ public class ScientificCalculatorActivity extends AppCompatActivity implements B
         bottomSheetRecyclerView.setHasFixedSize(true);
         ArrayList<ExpressionToken> expressionTokenArrayList = new ArrayList<>();
 
+        expressionTokenArrayList.add(new ExpressionToken("P", false));
+        expressionTokenArrayList.add(new ExpressionToken("C", false));
+        expressionTokenArrayList.add(new ExpressionToken("der", true));
+        expressionTokenArrayList.add(new ExpressionToken("X", false));
         expressionTokenArrayList.add(new ExpressionToken("e", false));
         expressionTokenArrayList.add(new ExpressionToken(UNICODE_PI, false));
         expressionTokenArrayList.add(new ExpressionToken(UNICODE_SQRT, true));
