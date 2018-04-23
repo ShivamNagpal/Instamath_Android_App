@@ -16,10 +16,12 @@
 
 package com.nagpal.shivam.instamath.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -41,6 +43,7 @@ import com.nagpal.shivam.instamath.R;
 import com.nagpal.shivam.instamath.Utils.ConstantMethods;
 import com.nagpal.shivam.instamath.Utils.Constants;
 import com.nagpal.shivam.instamath.Utils.ExpressionToken;
+import com.nagpal.shivam.instamath.Utils.TouchLinearLayout;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -80,6 +83,7 @@ public class ScientificCalculatorActivity extends AppCompatActivity implements B
         return super.onOptionsItemSelected(item);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,6 +117,35 @@ public class ScientificCalculatorActivity extends AppCompatActivity implements B
 
         View bottomSheet = findViewById(R.id.scientific_bottom_sheet);
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+
+        final TouchLinearLayout touchLinearLayout = findViewById(R.id.scientific_linear_layout_root);
+        touchLinearLayout.setTouchListener(new TouchLinearLayout.TouchListener() {
+            @Override
+            public void onTouch() {
+                if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                }
+            }
+        });
+
+        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                switch (newState) {
+                    case BottomSheetBehavior.STATE_COLLAPSED:
+                        touchLinearLayout.setActive(false);
+                        break;
+                    case BottomSheetBehavior.STATE_EXPANDED:
+                        touchLinearLayout.setActive(true);
+                        break;
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
 
         Button btnZero = findViewById(R.id.button_scientific_zero);
         btnZero.setOnClickListener(buttonOnClickListener(false));

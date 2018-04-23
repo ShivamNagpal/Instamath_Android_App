@@ -14,8 +14,9 @@
   ~ limitations under the License.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.nagpal.shivam.instamath.Utils.TouchLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scientific_linear_layout_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -357,4 +358,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</com.nagpal.shivam.instamath.Utils.TouchLinearLayout>
