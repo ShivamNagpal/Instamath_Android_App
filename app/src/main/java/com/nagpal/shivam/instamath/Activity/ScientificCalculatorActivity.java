@@ -43,7 +43,7 @@ import com.nagpal.shivam.instamath.R;
 import com.nagpal.shivam.instamath.Utils.ConstantMethods;
 import com.nagpal.shivam.instamath.Utils.Constants;
 import com.nagpal.shivam.instamath.Utils.ExpressionToken;
-import com.nagpal.shivam.instamath.Utils.TouchLinearLayout;
+import com.nagpal.shivam.instamath.Utils.TouchEventLinearLayout;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -118,10 +118,24 @@ public class ScientificCalculatorActivity extends AppCompatActivity implements B
         View bottomSheet = findViewById(R.id.scientific_bottom_sheet);
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
 
-        final TouchLinearLayout touchLinearLayout = findViewById(R.id.scientific_linear_layout_root);
-        touchLinearLayout.setTouchListener(new TouchLinearLayout.TouchListener() {
+        final TouchEventLinearLayout touchEventLinearLayout = findViewById(R.id.scientific_linear_layout_root);
+        touchEventLinearLayout.setTouchEventListener(new TouchEventLinearLayout.TouchEventListener() {
             @Override
-            public void onTouch() {
+            public void onActionUp() {
+                if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                }
+            }
+
+            @Override
+            public void onSlideUp() {
+                if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                }
+            }
+
+            @Override
+            public void onSlideDown() {
                 if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 }
@@ -133,10 +147,10 @@ public class ScientificCalculatorActivity extends AppCompatActivity implements B
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
                 switch (newState) {
                     case BottomSheetBehavior.STATE_COLLAPSED:
-                        touchLinearLayout.setActive(false);
+                        touchEventLinearLayout.setActionUpActive(false);
                         break;
                     case BottomSheetBehavior.STATE_EXPANDED:
-                        touchLinearLayout.setActive(true);
+                        touchEventLinearLayout.setActionUpActive(true);
                         break;
                 }
             }
