@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.nagpal.shivam.instamath.Utils;
+package com.nagpal.shivam.instamath.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -76,6 +76,4 @@ public class HexadecimalValueAdapter extends RecyclerView.Adapter<HexadecimalVal
             mButton = itemView;
         }
     }
-
-
 }

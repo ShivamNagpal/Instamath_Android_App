@@ -32,7 +32,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.nagpal.shivam.instamath.R;
-import com.nagpal.shivam.instamath.Utils.HexadecimalValueAdapter;
+import com.nagpal.shivam.instamath.Adapter.HexadecimalValueAdapter;
 
 import java.util.ArrayList;
 
