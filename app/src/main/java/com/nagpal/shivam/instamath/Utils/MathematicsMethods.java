@@ -20,6 +20,9 @@ import java.util.ArrayList;
 
 public class MathematicsMethods {
     public static Long[] getPrimeFactors(long n) {
+        if (n == 0 || n == 1) {
+            return new Long[0];
+        }
         ArrayList<Long> factorsArrayList = new ArrayList<>();
         boolean included = false;
         long last = (long) Math.sqrt(n);
