@@ -31,8 +31,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.nagpal.shivam.instamath.R;
 import com.nagpal.shivam.instamath.Adapter.HexadecimalValueAdapter;
+import com.nagpal.shivam.instamath.R;
 
 import java.util.ArrayList;
 
@@ -135,6 +135,13 @@ public class NumberConversionActivity extends AppCompatActivity {
                 }
 
                 switch (spnrInput.getSelectedItem().toString() + spnrOutput.getSelectedItem().toString()) {
+
+                    case decimalStr + decimalStr:
+                    case binaryStr + binaryStr:
+                    case octalStr + octalStr:
+                    case hexadecimalStr + hexadecimalStr:
+                        result = input;
+                        break;
 
                     case decimalStr + binaryStr:
                         result = fromDecimal(2, input);
