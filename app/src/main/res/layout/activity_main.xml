@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2018 Shivam Nagpal
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,12 +35,14 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <ListView
-        android:id="@+id/list_view_activity"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/main_recycler_view_activity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context="com.intangible.shiv.viv.instamath.Activity.MainActivity">
+        android:clipToPadding="false"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        tools:listitem="@layout/layout_main_list_item">
 
-    </ListView>
+    </android.support.v7.widget.RecyclerView>
 </LinearLayout>

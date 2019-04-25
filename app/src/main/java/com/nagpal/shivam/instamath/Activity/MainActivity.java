@@ -21,6 +21,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,7 +31,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.ListView;
 
 import com.nagpal.shivam.instamath.Adapter.ActivityDetailAdapter;
 import com.nagpal.shivam.instamath.R;
@@ -39,7 +40,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static ArrayList<ActivityDetail> mActivityDetailArrayList;
+    private ArrayList<ActivityDetail> mActivityDetailArrayList;
     private AutoCompleteTextView actvSearch;
     private Toolbar toolbar;
     private Boolean isSearchOpen = false;
@@ -89,8 +90,7 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             defaultToolbarElevation = toolbar.getElevation();
         }
-        ListView listView = findViewById(R.id.list_view_activity);
-
+        RecyclerView recyclerView = findViewById(R.id.main_recycler_view_activity);
 
         mActivityDetailArrayList = new ArrayList<>();
 
@@ -132,15 +132,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        listView.setAdapter(activityDetailAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(activityDetailAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(MainActivity.this, mActivityDetailArrayList.get(i).getActivityClass());
-                startActivity(intent);
-            }
-        });
     }
 
     private void openSearch() {
