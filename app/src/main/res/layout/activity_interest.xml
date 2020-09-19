@@ -15,7 +15,7 @@
   ~ limitations under the License.
   -->
 
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -23,7 +23,7 @@
     android:orientation="vertical"
     tools:context="com.nagpal.shivam.instamath.Activity.InterestActivity">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/input_constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/interest_text_input_layout_principal"
             android:layout_width="wrap_content"
             android:layout_height="64dp"
@@ -59,9 +59,9 @@
                 android:ems="14"
                 android:gravity="center"
                 android:inputType="numberDecimal" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/interest_text_input_layout_rate"
             android:layout_width="wrap_content"
             android:layout_height="64dp"
@@ -80,9 +80,9 @@
                 android:gravity="center"
                 android:inputType="numberDecimal"
                 android:minEms="14" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/interest_text_input_layout_time"
             android:layout_width="wrap_content"
             android:layout_height="64dp"
@@ -101,9 +101,9 @@
                 android:ems="14"
                 android:gravity="center"
                 android:inputType="numberDecimal" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/interest_button_result"
@@ -129,4 +129,4 @@
         app:layout_constraintTop_toBottomOf="@+id/input_constraint_layout"
         tools:text="Result Text View" />
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
