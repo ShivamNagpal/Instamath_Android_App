@@ -16,12 +16,13 @@
 
 package com.nagpal.shivam.instamath.Adapter;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.nagpal.shivam.instamath.R;
 import com.nagpal.shivam.instamath.Utils.ExpressionToken;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 
 public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.BottomSheetAdapterViewHolder> {
 
-    private ArrayList<ExpressionToken> buttonValues;
+    private final ArrayList<ExpressionToken> buttonValues;
     private ItemClickHandler itemClickHandler;
 
     public BottomSheetAdapter(ArrayList<ExpressionToken> buttonValues) {

@@ -17,10 +17,11 @@
 package com.nagpal.shivam.instamath.Utils;
 
 import android.content.Context;
-import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.LinearLayout;
+
+import androidx.annotation.Nullable;
 
 public class TouchEventLinearLayout extends LinearLayout {
     private TouchEventListener touchEventListener;

@@ -17,8 +17,8 @@
 package com.nagpal.shivam.instamath.Utils;
 
 public class ExpressionToken {
-    private String token;
-    private boolean isFunction;
+    private final String token;
+    private final boolean isFunction;
 
     public ExpressionToken(String token, boolean isFunction) {
         this.token = token;

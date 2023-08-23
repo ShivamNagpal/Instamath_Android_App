@@ -18,12 +18,13 @@ package com.nagpal.shivam.instamath.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.nagpal.shivam.instamath.R;
 
@@ -31,9 +32,9 @@ import java.util.ArrayList;
 
 public class HexadecimalValueAdapter extends RecyclerView.Adapter<HexadecimalValueAdapter.ViewHolder> {
 
-    private ArrayList<String> stringArrayList;
-    private Context context;
-    private View.OnClickListener onClickListener = new View.OnClickListener() {
+    private final ArrayList<String> stringArrayList;
+    private final Context context;
+    private final View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             try {

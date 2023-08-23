@@ -18,7 +18,6 @@ package com.nagpal.shivam.instamath.Activity;
 
 import android.content.res.Resources;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
 import android.util.TypedValue;
@@ -38,6 +37,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.nagpal.shivam.instamath.R;
 import com.nagpal.shivam.instamath.Utils.TwoColumnList;
 
@@ -46,7 +47,7 @@ import java.util.ArrayList;
 public class InterpolationActivity extends AppCompatActivity {
     private static final String INTERPOLATION = "Interpolation";
     private static final String INVERSE_INTERPOLATION = "Inverse Interpolation";
-    private int firstEntryIndex = 1;
+    private final int firstEntryIndex = 1;
     private int nextEntryIndex = firstEntryIndex;
     private View.OnClickListener removeViewClickListener;
     private TextView.OnEditorActionListener et1ActionListener;
@@ -65,10 +66,9 @@ public class InterpolationActivity extends AppCompatActivity {
     // TODO: Implement Inverse Interpolation, Also change the pair data storage to Subset Storage.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -84,10 +84,10 @@ public class InterpolationActivity extends AppCompatActivity {
 
         resources = getResources();
         inputTwoColumnList = new TwoColumnList<>();
-        llRoot = (LinearLayout) findViewById(R.id.root_layout_main_activity);
+        llRoot = findViewById(R.id.root_layout_main_activity);
         llRoot.setSaveEnabled(true);
-        etHypothesis = (EditText) findViewById(R.id.hypothesis_edit_text);
-        tvResult = (TextView) findViewById(R.id.interest_text_view_result);
+        etHypothesis = findViewById(R.id.hypothesis_edit_text);
+        tvResult = findViewById(R.id.interest_text_view_result);
         interpolationSpinner = findViewById(R.id.interpolation_spinner);
         hypothesisTV = findViewById(R.id.hypothesis_text_view);
 
@@ -132,7 +132,7 @@ public class InterpolationActivity extends AppCompatActivity {
             }
         };
 
-        btnAddNewEntry = (Button) findViewById(R.id.add_new_entry_button);
+        btnAddNewEntry = findViewById(R.id.add_new_entry_button);
         btnAddNewEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -159,7 +159,7 @@ public class InterpolationActivity extends AppCompatActivity {
             }
         });
 
-        btnSubmit = (Button) findViewById(R.id.submit_button);
+        btnSubmit = findViewById(R.id.submit_button);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -187,7 +187,7 @@ public class InterpolationActivity extends AppCompatActivity {
 
     private void edtTextRequestFocus() {
         LinearLayout llFirstEntry = (LinearLayout) llRoot.getChildAt(firstEntryIndex);
-        ((EditText) llFirstEntry.getChildAt(0)).requestFocus();
+        llFirstEntry.getChildAt(0).requestFocus();
     }
 
     private void addNewEntry() {
