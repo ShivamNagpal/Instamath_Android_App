@@ -19,8 +19,8 @@ package com.nagpal.shivam.instamath.Utils;
 import java.util.ArrayList;
 
 public class TwoColumnList<E> {
-    private ArrayList<E> xArrayList = new ArrayList<>();
-    private ArrayList<E> yArrayList = new ArrayList<>();
+    private final ArrayList<E> xArrayList = new ArrayList<>();
+    private final ArrayList<E> yArrayList = new ArrayList<>();
     private int size = 0;
 
     public TwoColumnList() {

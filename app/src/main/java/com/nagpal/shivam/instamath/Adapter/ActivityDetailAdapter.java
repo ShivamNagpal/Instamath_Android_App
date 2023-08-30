@@ -2,12 +2,13 @@ package com.nagpal.shivam.instamath.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.nagpal.shivam.instamath.R;
 import com.nagpal.shivam.instamath.Utils.ActivityDetail;
@@ -16,8 +17,8 @@ import java.util.ArrayList;
 
 public class ActivityDetailAdapter extends RecyclerView.Adapter<ActivityDetailAdapter.ActivityDetailViewHolder> {
 
-    private Context mContext;
-    private ArrayList<ActivityDetail> mActivityDetailArrayList;
+    private final Context mContext;
+    private final ArrayList<ActivityDetail> mActivityDetailArrayList;
 
     public ActivityDetailAdapter(@NonNull Context context, @NonNull ArrayList<ActivityDetail> activityDetailArrayList) {
         this.mContext = context;

@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Build;
-import androidx.annotation.NonNull;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +30,8 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.nagpal.shivam.instamath.R;
 
 public class PreferenceDetail {
@@ -38,22 +39,22 @@ public class PreferenceDetail {
     public static final byte TYPE_NUMBER = 1;
     public static final byte TYPE_STRING = 2;
 
-    private byte type;
+    private final byte type;
 
     private int labelIndex;
 
-    private Context context;
+    private final Context context;
 
     private float numberValue;
     private float maxValue;
     private float minValue;
     private float stepValue;
 
-    private String key;
-    private String title;
+    private final String key;
+    private final String title;
     private String[] spinnerLabels;
 
-    private SharedPreferences sharedPreferences;
+    private final SharedPreferences sharedPreferences;
 
     public PreferenceDetail(@NonNull Context context, String title, String key, byte type, float defaultValue, float minValue, float maxValue, float stepValue) {
 

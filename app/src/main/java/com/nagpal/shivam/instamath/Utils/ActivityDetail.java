@@ -17,8 +17,8 @@
 package com.nagpal.shivam.instamath.Utils;
 
 public class ActivityDetail {
-    private String mName;
-    private Class mActivityClass;
+    private final String mName;
+    private final Class mActivityClass;
 
     public ActivityDetail(String name, Class activityClass) {
         mName = name;

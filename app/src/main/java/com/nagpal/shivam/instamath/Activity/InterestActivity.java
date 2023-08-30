@@ -17,7 +17,6 @@
 package com.nagpal.shivam.instamath.Activity;
 
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +26,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.nagpal.shivam.instamath.R;
 
@@ -50,10 +51,9 @@ public class InterestActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -69,7 +69,7 @@ public class InterestActivity extends AppCompatActivity {
 
         initViews();
 
-        Button btnResult = (Button) findViewById(R.id.interest_button_result);
+        Button btnResult = findViewById(R.id.interest_button_result);
 
         interestSpinner.setAdapter(new ArrayAdapter<>(InterestActivity.this, android.R.layout.simple_spinner_dropdown_item, new String[]{SIMPLE_INTEREST, COMPOUND_INTEREST}));
 
@@ -115,10 +115,10 @@ public class InterestActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        editTextPrincipal = (EditText) findViewById(R.id.interest_edit_text_principal);
-        editTextRate = (EditText) findViewById(R.id.interest_edit_text_rate);
-        editTextTime = (EditText) findViewById(R.id.interest_edit_text_time);
-        textViewResult = (TextView) findViewById(R.id.interest_text_view_result);
+        editTextPrincipal = findViewById(R.id.interest_edit_text_principal);
+        editTextRate = findViewById(R.id.interest_edit_text_rate);
+        editTextTime = findViewById(R.id.interest_edit_text_time);
+        textViewResult = findViewById(R.id.interest_text_view_result);
         interestSpinner = findViewById(R.id.interest_spinner);
     }
 }
