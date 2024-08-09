@@ -17,13 +17,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdk 33
+    compileSdk 34
     defaultConfig {
         applicationId "com.nagpal.shivam.instamath"
         minSdkVersion 19
-        targetSdkVersion 33
-        versionCode 4
-        versionName "2.0.2"
+        targetSdkVersion 34
+        versionCode 5
+        versionName "2.0.3"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     buildTypes {

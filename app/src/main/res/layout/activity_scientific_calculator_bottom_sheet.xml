@@ -28,7 +28,8 @@
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@android:color/darker_gray" />
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/scientific_bottom_sheet_recycler_view"
