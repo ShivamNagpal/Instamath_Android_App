@@ -19,6 +19,7 @@
     android:id="@+id/scientific_linear_layout_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context="com.nagpal.shivam.instamath.Activity.ScientificCalculatorActivity"
     tools:ignore="HardcodedText">
